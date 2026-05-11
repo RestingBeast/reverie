@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { signIn, signOut, useSession } from "next-auth/react"
-import Image from "next/image"
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Login() {
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
   return (
     <div>
       LogIn <br />
@@ -26,5 +26,5 @@ export default function Login() {
         <div>Not Logged In</div>
       )}
     </div>
-  )
+  );
 }
