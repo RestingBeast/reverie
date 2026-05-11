@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import SpotifyProvider from "next-auth/providers/spotify";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
@@ -24,11 +23,13 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       if (account) {
         token.access_token = account.access_token!;
+        token.userId = account.providerAccountId!;
       }
       return token;
     },
     async session({ session, token }) {
       session.access_token = token.access_token;
+      session.user.userId = token.userId;
       return session;
     },
   },
