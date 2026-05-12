@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Vibecheck",
+  title: "Sonic Self",
   description: "Later",
 };
 
