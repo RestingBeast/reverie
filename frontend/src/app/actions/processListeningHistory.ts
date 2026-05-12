@@ -12,14 +12,23 @@ export async function processListeningHistory(){
 
 	try {
 		const { artistMap, trackMap } = await fetchRecentTracks();
-		const genreMap = await fetchArtistGenres([...artistMap.keys()]);
+		const { genreMap, genreCountMap } = await fetchArtistGenres([...artistMap.keys()]);
+
+		for (const item of artistMap) {
+			artistMap.set(item[0], {
+				artistId: item[1].artistId,
+				name: item[1].name,
+				playCount: item[1].playCount,
+				genres: genreMap.get(item[0]) || [],
+			})
+		}
 
 		return {
 			spotifyUserId: session.user.userId,
 			displayName: session.user.name,
 			tracks: trackMap,
 			artists: artistMap,
-			genres: genreMap,
+			genres: genreCountMap,
 		}
 	} catch (err) {
 		if (err instanceof Error) throw err;

@@ -37,7 +37,17 @@ export async function fetchArtistGenres(
 			genreMap.set(artist.id, artist.genres || []);
 		}
 
-		return genreMap;
+		const genreCountMap = new Map<string, number>()
+		for (const artist of data.artists) {
+			for (const genre of artist.genres) {
+				genreCountMap.set(genre, (genreCountMap.get(genre) || 0) + 1)
+			}
+		}
+
+		return {
+			genreMap,
+			genreCountMap
+		};
 	} catch (err) {
 		if (err instanceof Error) throw err;
 		throw new Error("Failed to reach Spotify. Check your connection.");

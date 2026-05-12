@@ -55,6 +55,7 @@ export async function fetchRecentTracks() {
 				artistId: artist.id,
 				name: artist.name,
 				playCount: (artistMap.get(artist.id)?.playCount || 0) + 1,
+        genres: []
 			})
 		}
 
