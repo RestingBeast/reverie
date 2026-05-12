@@ -21,6 +21,7 @@
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "groq-sdk": "^1.2.0",
     "mongoose": "^9.6.2",
     "nanoid": "^5.1.11"
   }
