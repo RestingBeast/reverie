@@ -27,6 +27,7 @@ const SummarySchema = new mongoose.Schema({
     },
   ],
   aiNarrative: { type: String, required: true },
+  personality: { type: String, required: true },
   shareId: { type: String, default: () => nanoid(10), unique: true },
   generatedAt: { type: Date, default: Date.now },
 });

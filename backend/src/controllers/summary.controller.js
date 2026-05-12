@@ -1,24 +1,6 @@
 import Summary from "../models/summary.model.js";
 import { generateNarrative } from "../services/ai/index.js";
 
-export const CreateSummary = async (req, res) => {
-  try {
-    // const newSummary = new Summary(req.body);
-    const newSummary = new Summary({
-      spotifyUserId: "test",
-      displayName: "test",
-      topTracks: [],
-      topArtists: [],
-      topGenres: [],
-      aiNarrative: "hello",
-    });
-    const savedSummary = await newSummary.save();
-    res.status(201).json(savedSummary.shareId);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
 export const GetSummary = async (req, res) => {
   try {
     const { shareId } = req.params;
@@ -39,7 +21,7 @@ function buildPrompt({ tracks, artists, genres, displayName}){
     .sort((a, b) => b.playCount - a.playCount)
     .map((a, i) => {
       const genres = a.genres.length > 0 ? `[${a.genres.join(", ")}]` : "";
-      return ` ${i + 1}. ${a.name}${genres} - played ${a.playCount}x`;
+      return ` ${i + 1}. ${a.name} ${genres} - played ${a.playCount}x`;
     })
     .join("\n");
 
@@ -54,6 +36,7 @@ function buildPrompt({ tracks, artists, genres, displayName}){
 
     1. PERSONALITY: A short, punchy label for this listener's music personality (max 6 words).
       Examples: "The Midnight Overthinker", "Caffeinated Indie Daydreamer"
+      - Try to draw inspiration from the top genres in the data
 
     2. NARRATIVE: A personal, engaging summary (3-5 sentences) of ${displayName}'s recent listening.
       - Reference specific artists, tracks, and genres from the data
@@ -92,16 +75,24 @@ export async function generateSummary(req, res) {
   try {
     const prompt = buildPrompt({ tracks, artists, genres, displayName});
     const raw = await generateNarrative(prompt);
-
     const parsed = JSON.parse(raw);
     const personality = parsed.personality;
     const narrative = parsed.narrative;
 
     if (!personality || !narrative) throw new Error("Missing fields in AI response");
 
-    return res.status(201).json({
+    const summary = await Summary.create({
+      spotifyUserId,
+      displayName,
+      topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
+      topArtists: artists.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
+      topGenres: genres.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
       personality,
-      narrative,
+      aiNarrative: narrative
+    })
+
+    return res.status(201).json({
+      shareId: summary.shareId,
     })
   } catch (err) {
     console.log("Summary generation failed", err);

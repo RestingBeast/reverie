@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import type { Artist } from "@spotify/web-api-ts-sdk";
+import type { GenreCountMap } from "@/types/genre.types";
 
 export async function fetchArtistGenres(
 	artistsIds: string[]
@@ -37,10 +38,13 @@ export async function fetchArtistGenres(
 			genreMap.set(artist.id, artist.genres || []);
 		}
 
-		const genreCountMap = new Map<string, number>()
+		const genreCountMap: GenreCountMap = new Map()
 		for (const artist of data.artists) {
 			for (const genre of artist.genres) {
-				genreCountMap.set(genre, (genreCountMap.get(genre) || 0) + 1)
+				genreCountMap.set(genre, {
+					genre: genre,
+					playCount: (genreCountMap.get(genre)?.playCount || 0) + 1,
+				});
 			}
 		}
 
