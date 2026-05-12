@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchRecentTracks } from "@/app/actions/fetchRecentTracks";
+import { processListeningHistory } from "@/app/actions/processListeningHistory";
 import { Dispatch, SetStateAction } from "react";
 
 export function GenerateButton({
@@ -10,7 +10,8 @@ export function GenerateButton({
 }) {
   const handleGenerate = async () => {
     try {
-      const tracks = fetchRecentTracks();
+      const info = await processListeningHistory();
+      console.log(info);
       // forward tracks to the backend
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");

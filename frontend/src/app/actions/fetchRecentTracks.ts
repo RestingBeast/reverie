@@ -3,13 +3,16 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import type { PlayHistory } from "@spotify/web-api-ts-sdk";
+import type { ArtistMap } from "@/types/artist.types"
+import type { TrackMap } from "@/types/track.types";
 
 export async function fetchRecentTracks() {
-  const session = await getServerSession(authOptions);
+  const trackMap: TrackMap = new Map();
+  const artistMap: ArtistMap = new Map();
 
+  const session = await getServerSession(authOptions);
   if (!session?.access_token) throw new Error("Not authenticated.");
 
-  let data: { items: PlayHistory[] };
   try {
     const res = await fetch(
       "https://api.spotify.com/v1/me/player/recently-played?limit=50",
@@ -29,21 +32,38 @@ export async function fetchRecentTracks() {
     if (!res.ok) {
       throw new Error(`Spotify API error: ${res.status}`);
     }
-    data = await res.json();
+
+    const data: {items: PlayHistory[]} = await res.json();
+    if (!data.items || data.items.length === 0) {
+      throw new Error(
+        "No recent listening history found on your Spotify account.",
+      );
+    }
+
+    for (const item of data.items) {
+			const track = item.track;
+			const artist = track.artists[0];
+
+			trackMap.set(track.id, {
+				trackId: track.id,
+				name: track.name,
+				artist: artist.name,
+				playCount: (trackMap.get(track.id)?.playCount || 0) + 1,
+			});
+
+			artistMap.set(artist.id, {
+				artistId: artist.id,
+				name: artist.name,
+				playCount: (artistMap.get(artist.id)?.playCount || 0) + 1,
+			})
+		}
+
+    return {
+      artistMap,
+      trackMap
+    };
   } catch (err) {
     if (err instanceof Error) throw err;
     throw new Error("Failed to reach Spotify. Check your connection.");
   }
-
-  if (!data.items || data.items.length === 0) {
-    throw new Error(
-      "No recent listening history found on your Spotify account.",
-    );
-  }
-
-  return {
-    tracks: data.items,
-    spotifyUserId: session.user.userId,
-    displayName: session.user.name,
-  };
 }

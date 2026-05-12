@@ -8,9 +8,9 @@ export default function Dashboard() {
   return (
     <div>
       {error === null ? (
-        <p>Something went wrong!</p>
-      ) : (
         <GenerateButton setError={setError} />
+      ) : (
+        <p>Something went wrong!</p>
       )}
     </div>
   );
