@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 export default function LogInButton() {
   return (
     <button
-      onClick={() => signIn("spotify")}
+      onClick={() => signIn("spotify", { callbackUrl: "/dashboard" })}
       className="
         group relative inline-flex items-center gap-3
         bg-[#1DB954] hover:bg-[#1ed760]
@@ -25,12 +25,12 @@ export default function LogInButton() {
     >
       {/* Spotify icon */}
       <Image
-          className="w-6 h-6 md:w-7 md:h-7 shrink-0"
-          src="/spotify.svg"
-          alt="Spotify logo"
-          width={1}
-          height={1}
-        />
+        className="w-6 h-6 md:w-7 md:h-7 shrink-0"
+        src="/spotify.svg"
+        alt="Spotify logo"
+        width={1}
+        height={1}
+      />
 
       <span className="leading-none">Log in with Spotify</span>
 

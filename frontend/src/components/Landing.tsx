@@ -38,7 +38,8 @@ export default function Landing() {
             mb-8 md:mb-10
           "
         >
-          Connect to generate your unique sonic narrative from your last 50 tracks.
+          Connect to generate your unique sonic narrative from your last 50
+          tracks.
         </p>
 
         {/* CTA */}

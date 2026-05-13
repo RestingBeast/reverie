@@ -2,12 +2,12 @@
 
 import Navbar from "@/components/Navbar";
 import Landing from "@/components/Landing";
+import MainLayout from "@/components/layouts/MainLayout";
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-[#07071a]">
-      <Navbar />
+    <MainLayout>
       <Landing />
-    </main>
+    </MainLayout>
   );
 }

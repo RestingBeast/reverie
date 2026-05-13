@@ -8,7 +8,7 @@ export const GetSummary = async (req, res) => {
 
     if (!summary) {
       return res.status(404).json({
-        message: `Summary with shareId ${shareId} not found.`
+        message: `Summary with shareId ${shareId} not found.`,
       });
     }
 
@@ -18,10 +18,13 @@ export const GetSummary = async (req, res) => {
   }
 };
 
-function buildPrompt({ tracks, artists, genres, displayName}){
+function buildPrompt({ tracks, artists, genres, displayName }) {
   const trackLines = tracks
     .sort((a, b) => b.playCount - a.playCount)
-    .map((t, i) => ` ${i + 1}. "${t.name}" by ${t.artist} - played ${t.playCount}x`)
+    .map(
+      (t, i) =>
+        ` ${i + 1}. "${t.name}" by ${t.artist} - played ${t.playCount}x`,
+    )
     .join("\n");
 
   const artistLines = artists
@@ -32,12 +35,12 @@ function buildPrompt({ tracks, artists, genres, displayName}){
     })
     .join("\n");
 
-    const genreLines = genres
-      .sort((a, b) => b.playCount - a.playCount)
-      .map((g, i) => ` ${i + 1}. ${g.genre} - played ${g.playCount}x`)
-      .join("\n");
+  const genreLines = genres
+    .sort((a, b) => b.playCount - a.playCount)
+    .map((g, i) => ` ${i + 1}. ${g.genre} - played ${g.playCount}x`)
+    .join("\n");
 
-    return `
+  return `
     You are Vibecheck, a witty and insightful music personality analyser.
     Based on the listening data below, write two things:
 
@@ -69,43 +72,55 @@ function buildPrompt({ tracks, artists, genres, displayName}){
 
     Genre breakdown (weighted by plays):
     ${genreLines}
-    `
+    `;
 }
 
 function cleanJsonString(rawResponse) {
-  return rawResponse.replace(/```json|```/gi, '').trim();
-};
+  return rawResponse.replace(/```json|```/gi, "").trim();
+}
 
 export async function generateSummary(req, res) {
-  const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } = req.body;
+  const {
+    spotifyUserId,
+    displayName,
+    avatarUrl,
+    tracks,
+    artists,
+    popularity,
+    genres,
+  } = req.body;
 
   if (!tracks?.length || !artists?.length || !spotifyUserId) {
-    return res.status(400).json({error: "Missing required listening data."});
+    return res.status(400).json({ error: "Missing required listening data." });
   }
 
   try {
-    const prompt = buildPrompt({ tracks, artists, genres, displayName});
+    const prompt = buildPrompt({ tracks, artists, genres, displayName });
     const raw = await generateNarrative(prompt);
     const parsed = JSON.parse(cleanJsonString(raw));
     const personality = parsed.personality;
     const narrative = parsed.narrative;
 
-    if (!personality || !narrative) throw new Error("Missing fields in AI response");
+    if (!personality || !narrative)
+      throw new Error("Missing fields in AI response");
 
     const summary = await Summary.create({
       spotifyUserId,
       displayName,
+      popularity,
       avatarUrl,
       topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 4),
-      topArtists: artists.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
+      topArtists: artists
+        .sort((a, b) => b.playCount - a.playCount)
+        .splice(0, 3),
       topGenres: genres.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
       personality,
-      aiNarrative: narrative
-    })
+      aiNarrative: narrative,
+    });
 
     return res.status(201).json(summary);
   } catch (err) {
     console.log("Summary generation failed", err);
-    return res.status(500).json({ error: "Internal Server Error."});
+    return res.status(500).json({ error: "Internal Server Error." });
   }
 }

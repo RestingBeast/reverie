@@ -44,7 +44,7 @@ export default function SignOutOverlay({
               <motion.span
                 key={index}
                 variants={letterVariants}
-                className="text-5xl md:text-7xl lg:text-9xl font-black italic tracking-tighter text-white-400 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+                className="text-5xl md:text-7xl lg:text-9xl font-black italic tracking-tighter text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
               >
                 {char === " " ? "\u00A0" : char}
               </motion.span>

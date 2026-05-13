@@ -3,6 +3,7 @@ import type { TrackInfo } from "@/types/track.types";
 import type { GenreCountInfo } from "@/types/genre.types";
 import Image from "next/image";
 import PopularityBar from "@/components/PopularityBar";
+import WaveformDecoration from "@/components/animations/WaveformAnimation";
 
 interface StatCardProps {
   variant: "tracks" | "artists" | "genres";
@@ -38,24 +39,6 @@ const GLOWS = [
   "drop-shadow-[0_0_6px_rgba(134,239,172,0.8)]", // green-300
   "drop-shadow-[0_0_6px_rgba(253,224,71,0.8)]", // yellow-300
 ];
-
-function WaveformDecoration() {
-  const heights = [
-    16, 20, 24, 20, 28, 22, 30, 24, 20, 28, 24, 18, 26, 22, 16, 20, 24, 28, 20,
-    18,
-  ];
-  return (
-    <div className="flex items-end gap-0.5 h-6 opacity-70">
-      {heights.map((h, i) => (
-        <span
-          key={i}
-          className="w-2.5 rounded-full bg-linear-to-t from-purple-400 to-cyan-300"
-          style={{ height: `${h}px` }}
-        />
-      ))}
-    </div>
-  );
-}
 
 function AvatarPlaceholder() {
   return (
@@ -191,7 +174,7 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
       </span>
 
       {/* The Neon Bar */}
-      <PopularityBar score={86} />
+      <PopularityBar score={artist.popularity ?? 0} />
     </li>
   );
 }
@@ -286,7 +269,7 @@ export default function StatCard({
             ))}
           </ol>
           {/* Waveform accent under genres */}
-          <div className="pt-1">
+          <div className="flex flex-col items-center pt-1">
             <WaveformDecoration />
           </div>
         </>

@@ -4,7 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 
 const bebasNeue = Bebas_Neue({
-  weight: '400',
+  weight: "400",
   variable: "--font-bebas-neue",
   subsets: ["latin"],
 });

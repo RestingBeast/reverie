@@ -1,12 +1,13 @@
 export type GenreInfo = {
-	genres: string[],
-	avatarUrl: string
-}
+  genres: string[];
+  avatarUrl: string;
+  popularity?: number;
+};
 
 export type GenreCountInfo = {
-	genre: string;
-	playCount: number;
-}
+  genre: string;
+  playCount: number;
+};
 
 export type GenreMap = Map<string, GenreInfo>;
 
