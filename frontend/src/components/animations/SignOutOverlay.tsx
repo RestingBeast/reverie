@@ -1,6 +1,12 @@
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
-export default function SignOutOverlay({ isLoggingOut, message }: { isLoggingOut: boolean, message: string}) {
+export default function SignOutOverlay({
+  isLoggingOut,
+  message,
+}: {
+  isLoggingOut: boolean;
+  message: string;
+}) {
   // Variants for the container (staggering children)
   const containerVariants: Variants = {
     hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
@@ -9,19 +15,19 @@ export default function SignOutOverlay({ isLoggingOut, message }: { isLoggingOut
       transition: {
         duration: 0.8,
         staggerChildren: 0.1, // Time between each letter
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.3,
+      },
+    },
   };
 
   // Variants for individual letters
-  const letterVariants : Variants = {
+  const letterVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "decay", damping: 12, stiffness: 200 }
-    }
+      transition: { type: "decay", damping: 12, stiffness: 200 },
+    },
   };
 
   return (
@@ -31,7 +37,7 @@ export default function SignOutOverlay({ isLoggingOut, message }: { isLoggingOut
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-6 text-center"
+          className="fixed inset-0 z-100 flex items-center justify-center p-6 text-center"
         >
           <div className="flex flex-wrap justify-center">
             {message.split("").map((char, index) => (
@@ -48,4 +54,4 @@ export default function SignOutOverlay({ isLoggingOut, message }: { isLoggingOut
       )}
     </AnimatePresence>
   );
-};
+}

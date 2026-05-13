@@ -4,7 +4,21 @@
 
 ### Problem
 
+- Who is affected?
+  Spotify listeners who are curious about their music habits but only get insight once a year through Spotify Wrapped — leaving 364 days of listening data unseen and unexplored.
+- What is the issue?
+  Spotify's official tools give users no way to reflect on their listening on demand. There is no native feature to generate a personalised summary of your recent listening, understand what your music choices say about your current mood or personality, or share that snapshot with others.
+
 ### Outcome
+
+What was achieved?
+Vibecheck is a web app that lets Spotify users instantly generate an AI-powered personality summary based on their recent listening history. Users can view their top tracks, artists, and genres, read a narrative about their current music personality, and share their Vibecheck with anyone via a public link — no account required to view.
+
+Measurable results:
+
+- Generates a personalised summary from up to 50 recent Spotify plays in under 10 seconds
+- Produces a unique shareable link per summary, viewable publicly without login
+- Extracts top artists and genres from recent listening history in a single session
 
 ---
 

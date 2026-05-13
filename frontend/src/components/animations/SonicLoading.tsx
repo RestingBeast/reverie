@@ -2,9 +2,9 @@ import { motion, Variants } from "framer-motion";
 
 type Props = {
   text: string;
-}
+};
 
-export const SonicLoading = ({text} : Props) => {
+export const SonicLoading = ({ text }: Props) => {
   // Container for the stagger effect
   const container = {
     hidden: { opacity: 0 },
@@ -50,15 +50,15 @@ export const SonicLoading = ({text} : Props) => {
 
       {/* Visual Accent: Pulsing Glow Bar */}
       <motion.div
-        className="w-48 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"
+        className="w-48 h-0.5 bg-linear-to-r from-transparent via-white to-transparent"
         animate={{
           opacity: [0.2, 1, 0.2],
-          scaleX: [0.8, 1.1, 0.8]
+          scaleX: [0.8, 1.1, 0.8],
         }}
         transition={{
           duration: 2,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
       />
     </div>

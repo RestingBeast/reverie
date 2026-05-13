@@ -1,6 +1,6 @@
 "use client";
 
-import SummaryCard2 from "@/components/SummaryCard2";
+import SummaryCard2 from "@/components/SummaryCard";
 import { use, useEffect, useState } from "react";
 import type { Summary } from "@/types/summary.types";
 import { fetchSharedSummary } from "@/app/actions/fetchSharedSummary";

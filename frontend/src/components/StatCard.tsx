@@ -2,8 +2,7 @@ import type { ArtistInfo } from "@/types/artist.types";
 import type { TrackInfo } from "@/types/track.types";
 import type { GenreCountInfo } from "@/types/genre.types";
 import Image from "next/image";
-
-type StatCardVariant = "tracks" | "artists" | "genres";
+import PopularityBar from "@/components/PopularityBar";
 
 interface StatCardProps {
   variant: "tracks" | "artists" | "genres";
@@ -12,15 +11,45 @@ interface StatCardProps {
   genres?: GenreCountInfo[];
 }
 
-// Waveform bars — decorative, matches the middle card style
+type TrackImageGridItem = {
+  name: string;
+  src: string;
+};
+
+interface TrackImageGridProps {
+  items: TrackImageGridItem[];
+  gridClassName?: string;
+  itemClassName?: string;
+  imageClassName?: string;
+}
+
+const COLORS = [
+  "text-cyan-300",
+  "text-purple-300",
+  "text-pink-300",
+  "text-green-300",
+  "text-yellow-300",
+];
+
+const GLOWS = [
+  "drop-shadow-[0_0_6px_rgba(103,232,249,0.8)]", // cyan-300
+  "drop-shadow-[0_0_6px_rgba(216,180,254,0.8)]", // purple-300
+  "drop-shadow-[0_0_6px_rgba(249,168,212,0.8)]", // pink-300
+  "drop-shadow-[0_0_6px_rgba(134,239,172,0.8)]", // green-300
+  "drop-shadow-[0_0_6px_rgba(253,224,71,0.8)]", // yellow-300
+];
+
 function WaveformDecoration() {
-  const heights = [6, 10, 14, 10, 18, 12, 20, 14, 10, 18, 14, 8, 16, 12, 6, 10, 14, 18, 10, 8];
+  const heights = [
+    16, 20, 24, 20, 28, 22, 30, 24, 20, 28, 24, 18, 26, 22, 16, 20, 24, 28, 20,
+    18,
+  ];
   return (
-    <div className="flex items-end gap-[2px] h-6 opacity-70">
+    <div className="flex items-end gap-0.5 h-6 opacity-70">
       {heights.map((h, i) => (
         <span
           key={i}
-          className="w-[3px] rounded-full bg-gradient-to-t from-purple-400 to-cyan-300"
+          className="w-2.5 rounded-full bg-linear-to-t from-purple-400 to-cyan-300"
           style={{ height: `${h}px` }}
         />
       ))}
@@ -28,61 +57,209 @@ function WaveformDecoration() {
   );
 }
 
-// Avatar placeholder circle
 function AvatarPlaceholder() {
   return (
-    <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-      <svg className="w-4 h-4 text-white/40" viewBox="0 0 24 24" fill="currentColor">
+    <div className="w-full h-full rounded-full bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+      <svg
+        className="w-4 h-4 text-white/40"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
         <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
       </svg>
     </div>
   );
 }
 
-// Small image squares for tracks (left card style: 2×2 grid of rectangles)
-function TrackImageGrid({ tracks }: { tracks: TrackInfo[]}) {
+function RankBadge({
+  rank,
+  size = "text-[11px]",
+}: {
+  rank: number;
+  size?: string;
+}) {
+  const color = COLORS[(rank - 1) % COLORS.length];
+  const glow = GLOWS[(rank - 1) % GLOWS.length];
+
   return (
-    <div className="grid grid-cols-2 gap-1 shrink-0">
-      {tracks.map((t, i) => (
+    <span
+      className={`
+        font-display ${size} tracking-widest w-5 shrink-0 text-center leading-none
+        ${color} ${glow}
+      `}
+    >
+      {rank}
+    </span>
+  );
+}
+
+const StatCardHeader = ({ children }: { children: React.ReactNode }) => (
+  <h3
+    className="font-display text-white text-base 
+    tracking-widest uppercase mb-2 md:text-lg lg:text-xl 
+    drop-shadow-[0_0_6px_rgba(2535,255,255,0.4)]"
+  >
+    {children}
+  </h3>
+);
+
+function TrackImageGrid({
+  items,
+  gridClassName,
+  itemClassName,
+  imageClassName,
+}: TrackImageGridProps) {
+  return (
+    <div
+      className={`grid grid-cols-2 gap-1 shrink-0 items-center ${gridClassName}`}
+    >
+      {items.map((item, i) => (
         <div
           key={i}
-          className="w-12 h-12 rounded-md bg-white/10 border border-white/10"
+          className={
+            items.length % 2 === 1 && i === items.length - 1
+              ? `col-span-2 justify-self-center ${itemClassName}`
+              : `${itemClassName}`
+          }
         >
-          <Image src={t.albumCover} alt={t.name} width={100} height={100} />
+          {item.src && (
+            <Image
+              className={`w-full h-full object-cover ${imageClassName}`}
+              src={item.src}
+              alt={item.name}
+              width={240}
+              height={240}
+            />
+          )}
         </div>
       ))}
     </div>
   );
 }
 
-export default function StatCard({ variant, tracks = [], artists = [], genres = [] }: StatCardProps) {
+function TrackRow({ track, rank }: { track: TrackInfo; rank: number }) {
+  return (
+    <li className="flex items-center gap-3">
+      <RankBadge rank={rank} size="text-xl sm:text-3xl" />
+
+      {/* Title + artist stacked */}
+      <div className="flex flex-col min-w-0 flex-1">
+        <span
+          className="font-body text-white/90 text-xs sm:text-sm md:text-base font-medium leading-snug truncate
+          group-hover:text-white transition-colors"
+        >
+          {track.name}
+        </span>
+        {track.artist && (
+          <span className="font-body text-white/35 text-[10px] sm:text-[12px] md:text-[14px] leading-snug truncate">
+            {track.artist}
+          </span>
+        )}
+      </div>
+    </li>
+  );
+}
+
+function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
+  return (
+    <li className="flex items-center gap-3 group">
+      <RankBadge rank={rank} size="text-xl sm:text-3xl" />
+
+      {/* Avatar */}
+      <div
+        className="w-10 h-10 shrink-0 rounded-full overflow-hidden bg-linear-to-br
+        from-purple-500/30 to-cyan-500/20 border border-white/10 flex 
+        items-center justify-center"
+      >
+        {artist.avatarUrl ? (
+          <img
+            src={artist.avatarUrl}
+            alt={artist.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <AvatarPlaceholder />
+        )}
+      </div>
+
+      {/* Name — fills full width */}
+      <span
+        className="font-body text-white/80 text-xs sm:text-sm lg:text-base font-medium flex-1 truncate
+        group-hover:text-white transition-colors"
+      >
+        {artist.name}
+      </span>
+
+      {/* The Neon Bar */}
+      <PopularityBar score={86} />
+    </li>
+  );
+}
+
+function GenreRow({ genre, rank }: { genre: string; rank: number }) {
+  const color = COLORS[(rank - 1) % COLORS.length];
+  return (
+    <li className="flex items-center gap-3 group">
+      <RankBadge rank={rank} size="text-xl sm:text-3xl" />
+
+      {/* Pill tag */}
+      <span
+        className={`
+          font-body text-xs sm:text-sm font-medium 
+          px-2.5 py-1 rounded-full tracking-wide
+          bg-white/5 border border-white/10
+          group-hover:border-white/20 ${color}
+        `}
+      >
+        {genre}
+      </span>
+
+      {/* Filler dashes to fill space */}
+      <div className="flex-1 flex items-center gap-1 overflow-hidden">
+        {Array.from({ length: 16 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-px flex-1 bg-white/6 rounded-full"
+            style={{ opacity: 1 - i * 0.06 }}
+          />
+        ))}
+      </div>
+    </li>
+  );
+}
+
+export default function StatCard({
+  variant,
+  tracks = [],
+  artists = [],
+  genres = [],
+}: StatCardProps) {
   let albumCovers: string[];
   return (
     <div className="bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm p-4 flex flex-col gap-3 w-full">
-
       {/* ── TOP TRACKS ── */}
       {variant === "tracks" && (
         <>
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex items-stretch justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-display text-white text-base tracking-widest uppercase mb-2">
-                Top Tracks
-              </h3>
+              <StatCardHeader>Top Tracks</StatCardHeader>
               <ol className="flex flex-col gap-1">
                 {tracks.map((t, i) => (
-                  <li key={i} className="font-body text-white/70 text-xs flex gap-2">
-                    <span className="text-white/30 w-3 shrink-0">{i + 1}.</span>
-                    <span className="truncate">
-                      {t.name}
-                      {t.artist && (
-                        <span className="text-white/40"> — {t.artist}</span>
-                      )}
-                    </span>
-                  </li>
+                  <TrackRow track={t} rank={i + 1} key={i} />
                 ))}
               </ol>
             </div>
-            <TrackImageGrid tracks={tracks} />
+            <div className="w-28 sm:w-42 flex flex-col justify-center">
+              <TrackImageGrid
+                gridClassName="h-28 sm:h-full mt-4 sm:mt-0"
+                itemClassName="aspect-square w-full min-h-0 w-auto rounded-md bg-white/10 border border-white/10"
+                imageClassName="rounded-md"
+                items={tracks.map((t, _) => ({
+                  name: t.name,
+                  src: t.albumCover,
+                }))}
+              />
+            </div>
           </div>
         </>
       )}
@@ -90,20 +267,10 @@ export default function StatCard({ variant, tracks = [], artists = [], genres = 
       {/* ── TOP ARTISTS ── */}
       {variant === "artists" && (
         <>
-          <h3 className="font-display text-white text-base tracking-widest uppercase">
-            Top Artists
-          </h3>
-          <ol className="flex flex-col gap-2">
+          <StatCardHeader>Top Artists</StatCardHeader>
+          <ol className="flex flex-col gap-2.5">
             {artists.map((a, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <span className="font-body text-white/30 text-xs w-3 shrink-0">{i + 1}.</span>
-                {a.avatarUrl ? (
-                  <img src={a.avatarUrl} alt={a.name} className="w-7 h-7 rounded-full object-cover shrink-0" />
-                ) : (
-                  <AvatarPlaceholder />
-                )}
-                <span className="font-body text-white/70 text-xs truncate">{a.name}</span>
-              </li>
+              <ArtistRow key={i} artist={a} rank={i + 1} />
             ))}
           </ol>
         </>
@@ -112,15 +279,10 @@ export default function StatCard({ variant, tracks = [], artists = [], genres = 
       {/* ── TOP GENRES ── */}
       {variant === "genres" && (
         <>
-          <h3 className="font-display text-white text-base tracking-widest uppercase">
-            Top Genres
-          </h3>
-          <ol className="flex flex-col gap-1">
+          <StatCardHeader>Top Genres</StatCardHeader>
+          <ol className="flex flex-col gap-2.5">
             {genres.map((g, i) => (
-              <li key={i} className="font-body text-white/70 text-xs flex gap-2">
-                <span className="text-white/30 w-3 shrink-0">{i + 1}.</span>
-                <span>{g.genre}</span>
-              </li>
+              <GenreRow key={i} genre={g.genre} rank={i + 1} />
             ))}
           </ol>
           {/* Waveform accent under genres */}
