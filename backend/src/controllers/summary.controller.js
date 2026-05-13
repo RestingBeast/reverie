@@ -5,18 +5,14 @@ export const GetSummary = async (req, res) => {
   try {
     const { shareId } = req.params;
     const summary = await Summary.findOne({ shareId }).exec();
-    return res.status(200).json({
-      spotifyUserId: summary.spotifyUserId,
-      displayName: summary.displayName,
-      avatarUrl: summary.avatarUrl,
-      topTracks: summary.topTracks,
-      topArtists: summary.topArtists,
-      topGenres: summary.topGenres,
-      personality: summary.personality,
-      aiNarrative: summary.aiNarrative,
-      shareId: summary.shareId,
-      generatedAt: summary.generatedAt
-    });
+
+    if (!summary) {
+      return res.status(404).json({
+        message: `Summary with shareId ${shareId} not found.`
+      });
+    }
+
+    return res.status(200).json(summary);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -107,18 +103,7 @@ export async function generateSummary(req, res) {
       aiNarrative: narrative
     })
 
-    return res.status(201).json({
-      spotifyUserId: summary.spotifyUserId,
-      displayName: summary.displayName,
-      avatarUrl: summary.avatarUrl,
-      topTracks: summary.topTracks,
-      topArtists: summary.topArtists,
-      topGenres: summary.topGenres,
-      personality: summary.personality,
-      aiNarrative: summary.aiNarrative,
-      shareId: summary.shareId,
-      generatedAt: summary.generatedAt
-    });
+    return res.status(201).json(summary);
   } catch (err) {
     console.log("Summary generation failed", err);
     return res.status(500).json({ error: "Internal Server Error."});
