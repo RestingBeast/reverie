@@ -4,12 +4,14 @@ import { nanoid } from "nanoid";
 const SummarySchema = new mongoose.Schema({
   spotifyUserId: { type: String, required: true },
   displayName: { type: String },
+  avatarUrl: {type: String},
   topTracks: [
     {
       trackId: String,
       name: String,
       artist: String,
       playCount: Number,
+      albumCover: String,
     },
   ],
   topArtists: [
@@ -18,6 +20,7 @@ const SummarySchema = new mongoose.Schema({
       name: String,
       playCount: Number,
       genres: [String],
+      avatarUrl: String,
     },
   ],
   topGenres: [

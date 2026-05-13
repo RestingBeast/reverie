@@ -19,13 +19,15 @@ export async function processListeningHistory(){
 				artistId: item[1].artistId,
 				name: item[1].name,
 				playCount: item[1].playCount,
-				genres: genreMap.get(item[0]) || [],
+				genres: genreMap.get(item[0])?.genres || [],
+				avatarUrl: genreMap.get(item[0])?.avatarUrl || ""
 			})
 		}
 
 		return {
 			spotifyUserId: session.user.userId,
 			displayName: session.user.name,
+			avatarUrl: session.user.image,
 			tracks: trackMap,
 			artists: artistMap,
 			genres: genreCountMap,

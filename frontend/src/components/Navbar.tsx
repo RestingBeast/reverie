@@ -13,14 +13,6 @@ export default function Navbar() {
             href="#"
             className="font-body text-white/80 hover:text-white text-sm md:text-base tracking-wide transition-colors duration-200"
           >
-            Home
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="font-body text-white/80 hover:text-white text-sm md:text-base tracking-wide transition-colors duration-200"
-          >
             Privacy
           </a>
         </li>

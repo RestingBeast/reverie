@@ -5,7 +5,18 @@ export const GetSummary = async (req, res) => {
   try {
     const { shareId } = req.params;
     const summary = await Summary.findOne({ shareId }).exec();
-    res.status(200).json(summary);
+    return res.status(200).json({
+      spotifyUserId: summary.spotifyUserId,
+      displayName: summary.displayName,
+      avatarUrl: summary.avatarUrl,
+      topTracks: summary.topTracks,
+      topArtists: summary.topArtists,
+      topGenres: summary.topGenres,
+      personality: summary.personality,
+      aiNarrative: summary.aiNarrative,
+      shareId: summary.shareId,
+      generatedAt: summary.generatedAt
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -45,7 +56,7 @@ function buildPrompt({ tracks, artists, genres, displayName}){
       - Do not mention play counts or numbers directly — weave them naturally into the narrative
       - Tone: warm, witty, slightly poetic
 
-    Return your response in this exact JSON format with no extra text:
+    Return your response in this exact JSON format with no extra text or not in md format:
     {
       "personality": "...",
       "narrative": "..."
@@ -65,8 +76,12 @@ function buildPrompt({ tracks, artists, genres, displayName}){
     `
 }
 
+function cleanJsonString(rawResponse) {
+  return rawResponse.replace(/```json|```/gi, '').trim();
+};
+
 export async function generateSummary(req, res) {
-  const { spotifyUserId, displayName, tracks, artists, genres } = req.body;
+  const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } = req.body;
 
   if (!tracks?.length || !artists?.length || !spotifyUserId) {
     return res.status(400).json({error: "Missing required listening data."});
@@ -75,7 +90,7 @@ export async function generateSummary(req, res) {
   try {
     const prompt = buildPrompt({ tracks, artists, genres, displayName});
     const raw = await generateNarrative(prompt);
-    const parsed = JSON.parse(raw);
+    const parsed = JSON.parse(cleanJsonString(raw));
     const personality = parsed.personality;
     const narrative = parsed.narrative;
 
@@ -84,7 +99,8 @@ export async function generateSummary(req, res) {
     const summary = await Summary.create({
       spotifyUserId,
       displayName,
-      topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
+      avatarUrl,
+      topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 4),
       topArtists: artists.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
       topGenres: genres.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
       personality,
@@ -92,8 +108,17 @@ export async function generateSummary(req, res) {
     })
 
     return res.status(201).json({
+      spotifyUserId: summary.spotifyUserId,
+      displayName: summary.displayName,
+      avatarUrl: summary.avatarUrl,
+      topTracks: summary.topTracks,
+      topArtists: summary.topArtists,
+      topGenres: summary.topGenres,
+      personality: summary.personality,
+      aiNarrative: summary.aiNarrative,
       shareId: summary.shareId,
-    })
+      generatedAt: summary.generatedAt
+    });
   } catch (err) {
     console.log("Summary generation failed", err);
     return res.status(500).json({ error: "Internal Server Error."});

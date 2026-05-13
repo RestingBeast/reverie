@@ -49,12 +49,14 @@ export async function fetchRecentTracks() {
 				name: track.name,
 				artist: artist.name,
 				playCount: (trackMap.get(track.id)?.playCount || 0) + 1,
+        albumCover: track.album.images[0].url
 			});
 
 			artistMap.set(artist.id, {
 				artistId: artist.id,
 				name: artist.name,
 				playCount: (artistMap.get(artist.id)?.playCount || 0) + 1,
+        avatarUrl: "",
         genres: []
 			})
 		}
