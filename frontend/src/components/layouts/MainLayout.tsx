@@ -3,13 +3,15 @@
 import Navbar from "@/components/Navbar";
 
 export default function MainLayout({
+  isPublic,
   children,
 }: {
+  isPublic?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <main className="relative min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar isPublic={isPublic} />
 
       {/* Background glow blobs */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">

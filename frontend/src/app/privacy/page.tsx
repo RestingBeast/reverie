@@ -1,4 +1,3 @@
-// app/privacy/page.tsx
 import MainLayout from "@/components/layouts/MainLayout";
 
 const SECTIONS = [
@@ -30,7 +29,7 @@ const SECTIONS = [
 
 export default function PrivacyPage() {
   return (
-    <MainLayout>
+    <MainLayout isPublic>
       <div className="relative z-10 flex-1 flex justify-center px-4 pt-32 pb-20">
         <div className="w-full max-w-2xl flex flex-col gap-10">
           {/* Header */}

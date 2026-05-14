@@ -25,7 +25,7 @@ export default async function SharePage({
   }
 
   return (
-    <MainLayout>
+    <MainLayout isPublic>
       <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-24">
         <SummaryCard
           summary={summary}
