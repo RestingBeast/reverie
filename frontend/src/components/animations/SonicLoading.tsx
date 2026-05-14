@@ -36,7 +36,7 @@ export const SonicLoading = ({ text }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       <motion.div
-        className="flex overflow-hidden text-white font-mono md:text-xl text-lg tracking-widest"
+        className="flex overflow-hidden text-white font-mono md:text-xl text-lg tracking-widest mb-4"
         variants={container}
         initial="hidden"
         animate="visible"

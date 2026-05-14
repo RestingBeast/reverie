@@ -36,6 +36,10 @@ export default function SummaryCard({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleRegenerate = () => {
+    router.push("/");
+  };
+
   return (
     <div
       className="
@@ -119,18 +123,17 @@ export default function SummaryCard({
       </div>
 
       {/* ── Action buttons ── */}
-      <div className="grid grid-cols-2 gap-3 pt-1">
+      <div className="grid md:grid-cols-2 gap-3 pt-1">
         {/* Primary: Share */}
         <ActionButton
-          buttonText={
-            copied ? "Narrative Encrypted..." : "Broadcast my Narrative"
-          }
+          buttonText={copied ? "Signal Captured" : "Broadcast my Narrative"}
           onClick={handleShare}
           className={`
           text-white transition-all duration-500
             ${
               copied
-                ? "bg-cyan-700/50 border border-white/10 opacity-80 shadow-none pointer-events-none"
+                ? `bg-linear-to-r from-emerald-600 to-green-400 font-bold border
+                 border-white/10 opacity-80 shadow-none pointer-events-none`
                 : `bg-linear-to-r from-purple-500 to-cyan-500 hover:from-purple-400
                 hover:to-cyan-400 shadow-[0_0_20px_2px_rgba(120,80,255,0.4)] 
                   hover:shadow-[0_0_28px_4px_rgba(120,80,255,0.6)]`
@@ -139,12 +142,14 @@ export default function SummaryCard({
         />
         {/* Secondary: Regenerate */}
         <ActionButton
-          buttonText={buttonText ?? "Rewrite the Echoes"}
-          onClick={readonly ? () => router.push("/") : onRegenerate}
+          buttonText={buttonText ?? "Recalibrate Narrative"}
+          onClick={readonly ? handleRegenerate : onRegenerate}
           className="
-            bg-white/5 hover:bg-white/10
-            border border-white/15 hover:border-white/30
-            text-white/80 hover:text-white
+            bg-linear-to-r from-yellow-400 via-pink-400 to-purple-500
+            hover:from-yellow-300 hover:via-pink-300 hover:to-purple-400
+            text-white
+            shadow-[0_0_20px_2px_rgba(251,191,36,0.4)]
+            hover:shadow-[0_0_28px_4px_rgba(251,191,36,0.6)]
           "
         />
       </div>
