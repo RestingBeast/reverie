@@ -21,9 +21,9 @@ export default function SummaryCard({
 }: SummaryCardProps) {
   const router = useRouter();
   const [copied, setCopied] = useState<boolean>(false);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const shareUrl = `${baseUrl}/share/${summary.shareId}`;
-  const displayGreeting = `Greetings, ${summary.displayName}`;
+  const displayGreeting = `Identified: ${summary.displayName}`;
   const date = new Date(summary.generatedAt).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
@@ -55,7 +55,7 @@ export default function SummaryCard({
       "
     >
       {/* ── Profile header ── */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center px-3 gap-4">
         {/* Avatar */}
         <div className="relative shrink-0">
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-linear-to-br from-purple-500/40 to-cyan-500/20 border-2 border-white/20 overflow-hidden flex items-center justify-center">
@@ -101,10 +101,13 @@ export default function SummaryCard({
       {/* ── Greeting + date ── */}
       <div className="flex flex-col gap-0.5 px-3">
         <p className="font-body text-white/60 text-xs sm:text-sm md:text-base tracking-wide">
+          [Singal Captured]
+        </p>
+        <p className="font-body text-white/60 text-xs sm:text-sm md:text-base tracking-wide">
           {displayGreeting}
         </p>
         <p className="font-body text-white/40 text-xs md:text-sm tracking-wide">
-          Date today: {date}
+          Timestamp: {date}
         </p>
       </div>
 

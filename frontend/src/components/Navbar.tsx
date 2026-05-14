@@ -75,7 +75,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-6 md:gap-8">
           <a
-            href="#"
+            href="/privacy"
             className="font-body text-white/80 hover:text-white text-sm md:text-base tracking-wide transition-colors duration-200"
           >
             Privacy

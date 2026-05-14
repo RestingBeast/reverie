@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import SignOutOverlay from "@/components/animations/SignOutOverlay";
 
 export default function MainLayout({
   children,

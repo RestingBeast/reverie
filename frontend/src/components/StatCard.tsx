@@ -217,7 +217,6 @@ export default function StatCard({
   artists = [],
   genres = [],
 }: StatCardProps) {
-  let albumCovers: string[];
   return (
     <div className="bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm p-4 flex flex-col gap-3 w-full">
       {/* ── TOP TRACKS ── */}

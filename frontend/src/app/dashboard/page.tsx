@@ -56,8 +56,14 @@ export default function ResultPage() {
         </div>
       )}
 
+      {status === "loading" && (
+        <div className="flex flex-col items-center justify-center py-24 gap-3 text-center min-h-[60vh]">
+          <SonicLoading text="Booting up..." />
+        </div>
+      )}
+
       {/* Pre-generation state */}
-      {!summary && !loading && status == "authenticated" && (
+      {!summary && !loading && status === "authenticated" && (
         <div
           className="
               relative w-full max-w-sm sm:max-w-md md:max-w-lg
@@ -93,11 +99,12 @@ export default function ResultPage() {
             onClick={handleGenerate}
             buttonText={"Decode my Sonic Self"}
             className={`
-              w-64 text-slate-600
-              bg-linear-to-r from-emerald-600 to-green-400 
-              hover:from-emerald-500 hover:to-green-300 
-              shadow-[0_0_20px_2px_rgba(16,185,129,0.4)] 
-              hover:shadow-[0_0_28px_4px_rgba(34,197,94,0.6)]
+              w-full
+              bg-linear-to-r from-orange-400 to-pink-500
+              hover:from-orange-300 hover:to-pink-400
+              text-white
+              shadow-[0_0_20px_2px_rgba(251,146,60,0.4)]
+              hover:shadow-[0_0_28px_4px_rgba(251,146,60,0.6)]
             `}
           />
         </div>
