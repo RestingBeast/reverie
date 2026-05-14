@@ -18,9 +18,9 @@ export default function Landing() {
         {/* Headline */}
         <div className="space-y-2">
           <h1 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-            One Echo. <br />
+            One Echo <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400">
-              Infinite Layers.
+              Infinite Layers
             </span>
           </h1>
         </div>
@@ -33,8 +33,7 @@ export default function Landing() {
             mt-2 md:mt-4 mb-8 md:mb-10
           "
         >
-          Sync your frequencies to construct a narrative blueprint from your
-          recent sonic history.
+          Your listening history, decoded into a story only you could soundtrack
         </p>
 
         {/* CTA */}

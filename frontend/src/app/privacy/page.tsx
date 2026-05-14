@@ -16,7 +16,7 @@ const SECTIONS = [
   },
   {
     title: "Third-Party Services",
-    body: "We use the Spotify Web API to fetch your listening history. Your use of Sonic Self is also subject to Spotify's own Privacy Policy. We use Groq to generate narrative text — only anonymised listening data (track names, artists, genres) is sent to the model.",
+    body: "We use the Spotify Web API to fetch your listening history. Your use of Sonic Self is also subject to Spotify's own Privacy Policy. We use Groq to generate narrative text — your name and listening data (track names, artists, genres) is sent to the model.",
   },
   {
     title: "Cookies & Sessions",

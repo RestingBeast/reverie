@@ -88,10 +88,15 @@ export default function ResultPage() {
               className="rounded-full object-cover border-2 border-white/20"
             />
           </div>
-          <h1 className="text-zinc-400 text-2xl">
-            Hey, {session?.user.name} 👋
+          <h1
+            className="
+              font-display text-[#f0ece4] text-2xl tracking-widest
+              drop-shadow-[0_0_30px_rgba(220,200,255,0.3)]
+            "
+          >
+            Hey, {session?.user.name}
           </h1>
-          <p className="text-zinc-400 text-center sm:test-sm">
+          <p className="font-body text-[#b8a9c9]/60 text-lg tracking-[0.3em] mb-2 text-center">
             While we scan your sonic echoes, your unique narrative is beginning
             to take shape.
           </p>

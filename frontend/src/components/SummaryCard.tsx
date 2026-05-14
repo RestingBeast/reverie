@@ -23,7 +23,7 @@ export default function SummaryCard({
   const [copied, setCopied] = useState<boolean>(false);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const shareUrl = `${baseUrl}/share/${summary.shareId}`;
-  const displayGreeting = `Identified: ${summary.displayName}`;
+  const sharer = `Identified: ${summary.displayName}`;
   const date = new Date(summary.generatedAt).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
@@ -54,6 +54,21 @@ export default function SummaryCard({
         flex flex-col gap-5
       "
     >
+      {/* ── Sharer header ── */}
+      {readonly && (
+        <div className="flex flex-col items-center gap-1 mb-6 text-center">
+          <p className="font-body text-white/40 text-xs tracking-[0.3em] uppercase">
+            [Signal Captured]
+          </p>
+          <h2 className="font-display text-white/80 text-2xl sm:text-3xl tracking-widest uppercase">
+            {summary.displayName}'s Sonic Portrait
+          </h2>
+          <p className="font-body text-white/40 text-base mt-1">
+            This is their story. What would yours sound like?
+          </p>
+        </div>
+      )}
+
       {/* ── Profile header ── */}
       <div className="flex items-center px-3 gap-4">
         {/* Avatar */}
@@ -100,12 +115,6 @@ export default function SummaryCard({
 
       {/* ── Greeting + date ── */}
       <div className="flex flex-col gap-0.5 px-3">
-        <p className="font-body text-white/60 text-xs sm:text-sm md:text-base tracking-wide">
-          [Singal Captured]
-        </p>
-        <p className="font-body text-white/60 text-xs sm:text-sm md:text-base tracking-wide">
-          {displayGreeting}
-        </p>
         <p className="font-body text-white/40 text-xs md:text-sm tracking-wide">
           Timestamp: {date}
         </p>
