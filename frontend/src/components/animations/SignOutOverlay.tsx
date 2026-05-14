@@ -38,7 +38,7 @@ export default function SignOutOverlay({
           initial="hidden"
           animate="visible"
           exit="hidden" // Smooth fade out
-          className="fixed inset-0 z-[100] flex items-center justify-center p-6 text-center bg-black/40 backdrop-blur-xl"
+          className="fixed inset-0 z-100 flex items-center justify-center p-6 text-center bg-black/40 backdrop-blur-xl"
         >
           <div className="flex flex-wrap justify-center">
             {message.split("").map((char, index) => (

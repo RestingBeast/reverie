@@ -3,7 +3,7 @@ import LogInButton from "./LogInButton";
 export default function Landing() {
   return (
     <section className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
-      {/* Background image — swap src for your own asset */}
+      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/bg-neon-waves.jpg')" }}

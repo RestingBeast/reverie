@@ -46,7 +46,7 @@ export default function Navbar() {
     setIsLoggingOut(true);
     setTimeout(() => {
       signOut({ callbackUrl: "/" });
-    }, 3000);
+    }, 2500);
   };
 
   // Close on outside click
@@ -142,7 +142,7 @@ export default function Navbar() {
       </nav>
       <SignOutOverlay
         isLoggingOut={isLoggingOut}
-        message="System offline. Wake up..."
+        message="FADING TO SILENCE..."
       />
     </>
   );

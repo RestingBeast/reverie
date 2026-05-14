@@ -165,7 +165,7 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
         )}
       </div>
 
-      {/* Name — fills full width */}
+      {/* Name */}
       <span
         className="font-body text-white/80 text-xs sm:text-sm lg:text-base font-medium flex-1 truncate
         group-hover:text-white transition-colors"
