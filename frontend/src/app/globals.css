@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* 1. Define keyframes as a theme variable */
   --keyframes-shimmer: {
     from {
       transform: translateX(-100%);
@@ -10,9 +9,11 @@
       transform: translateX(100%);
     }
   };
-
-  /* 2. Define the animation as a theme variable */
   --animation-shimmer: shimmer 2s linear infinite;
+}
+
+:root {
+  background-color: #07071a;
 }
 
 html {

@@ -10,7 +10,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="relative min-h-screen bg-[#07071a] flex flex-col">
+    <main className="relative min-h-screen flex flex-col">
       <Navbar />
 
       {/* Background glow blobs */}

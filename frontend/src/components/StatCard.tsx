@@ -2,7 +2,7 @@ import type { ArtistInfo } from "@/types/artist.types";
 import type { TrackInfo } from "@/types/track.types";
 import type { GenreCountInfo } from "@/types/genre.types";
 import Image from "next/image";
-import PopularityBar from "@/components/PopularityBar";
+import ResonanceBar from "@/components/ResonanceBar";
 import WaveformDecoration from "@/components/animations/WaveformAnimation";
 
 interface StatCardProps {
@@ -174,7 +174,7 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
       </span>
 
       {/* The Neon Bar */}
-      <PopularityBar score={artist.popularity ?? 0} />
+      <ResonanceBar score={artist.popularity ?? 0} />
     </li>
   );
 }

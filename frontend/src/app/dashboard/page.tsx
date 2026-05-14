@@ -6,9 +6,9 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { processListeningHistory } from "@/app/actions/processListeningHistory";
 import { Summary } from "@/types/summary.types";
-import GenerateButton from "@/components/GenerateButton";
 import { SonicLoading } from "@/components/animations/SonicLoading";
 import MainLayout from "@/components/layouts/MainLayout";
+import ActionButton from "@/components/ActionButton";
 
 export default function ResultPage() {
   const { data: session, status } = useSession();
@@ -26,7 +26,7 @@ export default function ResultPage() {
         await processListeningHistory();
       // 2. Send processed data to Express for AI generation + DB save
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/summaries/generate`,
+        `${process.env.NEXT_PUBLIC_API_URL}/summaries/generate`,
         {
           method: "POST",
           headers: {
@@ -89,8 +89,10 @@ export default function ResultPage() {
           <div className="relative w-32 h-32">
             <Image
               src={session?.user?.image!}
+              loading="eager"
               alt="profile-image"
               fill
+              sizes="200px"
               className="rounded-full object-cover border-2 border-white/20"
             />
           </div>
@@ -101,10 +103,16 @@ export default function ResultPage() {
             While we scan your sonic echoes, your unique narrative is beginning
             to take shape.
           </p>
-          <GenerateButton
+          <ActionButton
             onClick={handleGenerate}
-            loading={loading}
-            label={"Decode my Sonic Self"}
+            buttonText={"Decode my Sonic Self"}
+            className={`
+              w-64 text-slate-600
+              bg-linear-to-r from-emerald-600 to-green-400 
+              hover:from-emerald-500 hover:to-green-300 
+              shadow-[0_0_20px_2px_rgba(16,185,129,0.4)] 
+              hover:shadow-[0_0_28px_4px_rgba(34,197,94,0.6)]
+            `}
           />
         </div>
       )}
@@ -119,10 +127,7 @@ export default function ResultPage() {
       {/* Card centered on page */}
       {summary && !loading && (
         <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-24">
-          <SummaryCard
-            summary={summary}
-            onRegenerate={() => console.log("regenerate")}
-          />
+          <SummaryCard summary={summary} onRegenerate={handleGenerate} />
         </div>
       )}
     </MainLayout>

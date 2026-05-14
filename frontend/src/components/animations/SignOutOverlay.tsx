@@ -9,12 +9,12 @@ export default function SignOutOverlay({
 }) {
   // Variants for the container (staggering children)
   const containerVariants: Variants = {
-    hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
+    hidden: { opacity: 0 }, // Start transparent
     visible: {
-      backgroundColor: "#0B0E14", // Deep Midnight
+      opacity: 1,
       transition: {
-        duration: 0.8,
-        staggerChildren: 0.1, // Time between each letter
+        duration: 0.5,
+        staggerChildren: 0.1,
         delayChildren: 0.3,
       },
     },
@@ -37,14 +37,15 @@ export default function SignOutOverlay({
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="fixed inset-0 z-100 flex items-center justify-center p-6 text-center"
+          exit="hidden" // Smooth fade out
+          className="fixed inset-0 z-[100] flex items-center justify-center p-6 text-center bg-black/40 backdrop-blur-xl"
         >
           <div className="flex flex-wrap justify-center">
             {message.split("").map((char, index) => (
               <motion.span
                 key={index}
                 variants={letterVariants}
-                className="text-5xl md:text-7xl lg:text-9xl font-black italic tracking-tighter text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+                className="text-xl md:text-3xl lg:text-5xl font-black italic tracking-tighter text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]"
               >
                 {char === " " ? "\u00A0" : char}
               </motion.span>

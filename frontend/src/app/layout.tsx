@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${bebasNeue.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="bg-[#07071a]">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

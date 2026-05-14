@@ -1,36 +1,38 @@
-"use client";
-
-import SummaryCard2 from "@/components/SummaryCard";
-import { use, useEffect, useState } from "react";
-import type { Summary } from "@/types/summary.types";
 import { fetchSharedSummary } from "@/app/actions/fetchSharedSummary";
+import SummaryCard from "@/components/SummaryCard";
 import MainLayout from "@/components/layouts/MainLayout";
+import { notFound } from "next/navigation";
+import type { Summary } from "@/types/summary.types";
 
-export default function SharePage({
+export default async function SharePage({
   params,
 }: {
   params: Promise<{ shareId: string }>;
 }) {
-  const { shareId } = use(params);
-  const [summary, setSummary] = useState<Summary | null>(null);
+  const { shareId } = await params;
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
-  useEffect(() => {
-    const getSummary = async () => {
-      if (shareId) {
-        const sum: Summary = await fetchSharedSummary(shareId);
-        setSummary(sum);
-      }
-    };
-    getSummary();
-  }, [shareId]);
+  let summary: Summary | null = null;
+  try {
+    [summary] = await Promise.all([fetchSharedSummary(shareId), sleep(4500)]);
+  } catch (err) {
+    notFound();
+  }
+
+  if (!summary) {
+    notFound();
+  }
 
   return (
     <MainLayout>
-      {summary && (
-        <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-24">
-          <SummaryCard2 summary={summary} buttonText="Generate my something" />
-        </div>
-      )}
+      <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-24">
+        <SummaryCard
+          summary={summary}
+          buttonText="Find your own Narrative"
+          readonly
+        />
+      </div>
     </MainLayout>
   );
 }

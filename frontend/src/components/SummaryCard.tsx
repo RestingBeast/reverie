@@ -3,22 +3,26 @@
 import { Summary } from "@/types/summary.types";
 import StatCard from "./StatCard";
 import { useState } from "react";
+import ActionButton from "@/components/ActionButton";
+import { useRouter } from "next/navigation";
 
 interface SummaryCardProps {
   summary: Summary;
   buttonText?: string;
+  readonly?: boolean;
   onRegenerate?: () => void;
-  onSignOut?: () => void;
 }
 
 export default function SummaryCard({
   summary,
   buttonText,
+  readonly,
   onRegenerate,
-  onSignOut,
 }: SummaryCardProps) {
+  const router = useRouter();
   const [copied, setCopied] = useState<boolean>(false);
-  const shareUrl = `${window.location.origin}/share/${summary.shareId}`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+  const shareUrl = `${baseUrl}/share/${summary.shareId}`;
   const displayGreeting = `Greetings, ${summary.displayName}`;
   const date = new Date(summary.generatedAt).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -117,38 +121,32 @@ export default function SummaryCard({
       {/* ── Action buttons ── */}
       <div className="grid grid-cols-2 gap-3 pt-1">
         {/* Primary: Share */}
-        <button
+        <ActionButton
+          buttonText={
+            copied ? "Narrative Encrypted..." : "Broadcast my Narrative"
+          }
           onClick={handleShare}
-          className="
-            font-display tracking-widest uppercase text-xs sm:text-sm
-            bg-linear-to-r from-purple-500 to-cyan-500
-            hover:from-purple-400 hover:to-cyan-400
-            text-white
-            py-3 rounded-full
-            shadow-[0_0_20px_2px_rgba(120,80,255,0.4)]
-            hover:shadow-[0_0_28px_4px_rgba(120,80,255,0.6)]
-            transition-all duration-300
-            hover:scale-[1.02] active:scale-100
-          "
-        >
-          Share My Vibe
-        </button>
-
+          className={`
+          text-white transition-all duration-500
+            ${
+              copied
+                ? "bg-cyan-700/50 border border-white/10 opacity-80 shadow-none pointer-events-none"
+                : `bg-linear-to-r from-purple-500 to-cyan-500 hover:from-purple-400
+                hover:to-cyan-400 shadow-[0_0_20px_2px_rgba(120,80,255,0.4)] 
+                  hover:shadow-[0_0_28px_4px_rgba(120,80,255,0.6)]`
+            }
+          `}
+        />
         {/* Secondary: Regenerate */}
-        <button
-          onClick={onRegenerate}
+        <ActionButton
+          buttonText={buttonText ?? "Rewrite the Echoes"}
+          onClick={readonly ? () => router.push("/") : onRegenerate}
           className="
-            font-display tracking-widest uppercase text-xs sm:text-sm
             bg-white/5 hover:bg-white/10
             border border-white/15 hover:border-white/30
             text-white/80 hover:text-white
-            py-3 rounded-full
-            transition-all duration-300
-            hover:scale-[1.02] active:scale-100
           "
-        >
-          {buttonText ?? "Regenerate"}
-        </button>
+        />
       </div>
     </div>
   );

@@ -1,15 +1,13 @@
-import React from "react";
-
-interface PopularityBarProps {
+interface ResonanceBarProps {
   score: number;
 }
 
-const PopularityBar = ({ score }: PopularityBarProps) => {
+const ResonanceBar = ({ score }: ResonanceBarProps) => {
   return (
     <div className="w-full max-w-45 md:max-w-25 lg:max-w-45 flex flex-col gap-1.5">
       <div className="flex justify-between items-end px-0.5">
         <span className="text-[10px] font-bold uppercase tracking-widest text-purple-300/60">
-          Popularity
+          Resonance
         </span>
       </div>
 
@@ -33,4 +31,4 @@ const PopularityBar = ({ score }: PopularityBarProps) => {
   );
 };
 
-export default PopularityBar;
+export default ResonanceBar;

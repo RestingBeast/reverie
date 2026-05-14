@@ -16,30 +16,25 @@ export default function Landing() {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-12 lg:px-20 max-w-3xl mx-auto">
         {/* Headline */}
-        <h1
-          className="
-            font-display font-black text-white leading-[1.05] tracking-tight
-            text-5xl sm:text-6xl md:text-7xl lg:text-8xl
-            drop-shadow-[0_2px_32px_rgba(120,80,255,0.4)]
-            mb-4 md:mb-6
-          "
-        >
-          Your Music.
-          <br />
-          Your Story.
-        </h1>
-
+        <div className="space-y-2">
+          <h1 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            One Echo. <br />
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400">
+              Infinite Layers.
+            </span>
+          </h1>
+        </div>
         {/* Subheading */}
         <p
           className="
-            font-body text-white/75 text-sm sm:text-base md:text-lg
+            text-white/75 text-base md:text-xl
             max-w-xs sm:max-w-sm md:max-w-md
             leading-relaxed tracking-wide
-            mb-8 md:mb-10
+            mt-2 md:mt-4 mb-8 md:mb-10
           "
         >
-          Connect to generate your unique sonic narrative from your last 50
-          tracks.
+          Sync your frequencies to construct a narrative blueprint from your
+          recent sonic history.
         </p>
 
         {/* CTA */}

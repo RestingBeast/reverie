@@ -46,7 +46,7 @@ export default function Navbar() {
     setIsLoggingOut(true);
     setTimeout(() => {
       signOut({ callbackUrl: "/" });
-    }, 2500);
+    }, 3000);
   };
 
   // Close on outside click
@@ -66,9 +66,12 @@ export default function Navbar() {
         className="absolute top-0 left-0 right-0 z-50 flex items-center
         justify-between px-6 py-5 md:px-10"
       >
-        <span className="font-display text-white text-base md:text-lg font-bold tracking-[0.2em] uppercase select-none">
+        <a
+          href="/"
+          className="font-display text-white text-base md:text-lg font-bold tracking-[0.2em] uppercase select-none"
+        >
           Sonic Self
-        </span>
+        </a>
 
         <div className="flex items-center gap-6 md:gap-8">
           <a
@@ -84,7 +87,7 @@ export default function Navbar() {
                 onClick={() => setOpen((prev) => !prev)}
                 className="
               w-9 h-9 md:w-10 md:h-10 rounded-full
-              bg-gradient-to-br from-purple-500/50 to-cyan-500/30
+              bg-linear-to-br from-purple-500/50 to-cyan-500/30
               border-2 border-white/20 hover:border-white/50
               overflow-hidden
               flex items-center justify-center
@@ -137,7 +140,10 @@ export default function Navbar() {
           )}
         </div>
       </nav>
-      <SignOutOverlay isLoggingOut={isLoggingOut} message="Good bye..." />
+      <SignOutOverlay
+        isLoggingOut={isLoggingOut}
+        message="System offline. Wake up..."
+      />
     </>
   );
 }
