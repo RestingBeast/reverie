@@ -9,6 +9,7 @@ import { Summary } from "@/types/summary.types";
 import { SonicLoading } from "@/components/animations/SonicLoading";
 import MainLayout from "@/components/layouts/MainLayout";
 import ActionButton from "@/components/ActionButton";
+import { generateSummary } from "@/app/actions/generateSummary";
 
 export default function ResultPage() {
   const { data: session, status } = useSession();
@@ -25,30 +26,15 @@ export default function ResultPage() {
       const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } =
         await processListeningHistory();
       // 2. Send processed data to Express for AI generation + DB save
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/summaries/generate`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: `{
-              "spotifyUserId": "${spotifyUserId}",
-              "displayName": "${displayName}",
-              "avatarUrl": "${avatarUrl}",
-              "tracks": ${JSON.stringify(Array.from(tracks.values()))},
-              "artists": ${JSON.stringify(Array.from(artists.values()))},
-              "genres": ${JSON.stringify(Array.from(genres.values()))}
-            }`,
-        },
-      );
+      const data = await generateSummary({
+        spotifyUserId,
+        displayName,
+        avatarUrl,
+        tracks,
+        artists,
+        genres,
+      });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to generate summary.");
-      }
-
-      const data: Summary = await res.json();
       setSummary(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Internal Server Error.");
