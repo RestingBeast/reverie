@@ -4,12 +4,12 @@ import Image from "next/image";
 import SummaryCard from "@/components/SummaryCard";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { processListeningHistory } from "@/app/actions/processListeningHistory";
+import { processListeningHistory } from "@/actions/processListeningHistory";
 import { Summary } from "@/types/summary.types";
 import { SonicLoading } from "@/components/animations/SonicLoading";
 import MainLayout from "@/components/layouts/MainLayout";
 import ActionButton from "@/components/ActionButton";
-import { generateSummary } from "@/app/actions/generateSummary";
+import { generateSummary } from "@/actions/generateSummary";
 
 export default function ResultPage() {
   const { data: session, status } = useSession();

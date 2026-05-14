@@ -1,4 +1,4 @@
-import { fetchSharedSummary } from "@/app/actions/fetchSharedSummary";
+import { fetchSharedSummary } from "@/actions/fetchSharedSummary";
 import SummaryCard from "@/components/SummaryCard";
 import MainLayout from "@/components/layouts/MainLayout";
 import { notFound } from "next/navigation";
