@@ -36,4 +36,6 @@ const SummarySchema = new mongoose.Schema({
   generatedAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("Summary", SummarySchema);
+const Summary = mongoose.model("Summary", SummarySchema);
+
+export default Summary;

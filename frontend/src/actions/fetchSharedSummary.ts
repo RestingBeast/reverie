@@ -5,7 +5,7 @@ import { Summary } from "@/types/summary.types";
 export async function fetchSharedSummary(shareId: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/summaries/${shareId}`,
+      `${process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000"}/api/summaries/${shareId}`,
       { cache: "force-cache" },
     );
     if (!res.ok) throw new Error("Summary Not Found");
