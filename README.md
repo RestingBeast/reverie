@@ -31,7 +31,6 @@ Sonic-Self lets any Spotify user log in, instantly analyse their recent listenin
 4. The processed payload is sent to the Express backend, which calls the AI adapter and returns a personality summary.
 5. The summary is saved to MongoDB with a unique `shareId`.
 <img width="1920" height="1445" alt="4 1" src="https://github.com/user-attachments/assets/1820ecf6-a9ea-4dce-bd8d-7f93dfe27c44" />
-<img width="1920" height="913" alt="4 2" src="https://github.com/user-attachments/assets/3bc67364-23a3-41c8-a6d3-cc7bfd146e3e" />
 
 6. The user sees their personality card and can copy a public link at `/share/[shareId]`.
 <img width="1920" height="1610" alt="share-page" src="https://github.com/user-attachments/assets/878434be-dc26-4997-9ed3-3962753d62c5" />
