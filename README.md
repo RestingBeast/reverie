@@ -91,6 +91,8 @@ services/ai/
 ## Installation
 
 **Prerequisites:** Node.js 18+, MongoDB Atlas account, Spotify Developer account, Groq API key.
+- [Spotify Client Guide](https://developer.spotify.com/documentation/web-api/concepts/apps)
+- [Groq Quickstart](https://console.groq.com/docs/quickstart)
 
 ```bash
 # 1. Clone the repository
