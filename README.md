@@ -19,22 +19,22 @@ Sonic-Self lets any Spotify user log in, instantly analyse their recent listenin
 
 **Flow: Login → Analyse → Share**
 
-<img width="1896" height="897" alt="1 0" src="https://github.com/user-attachments/assets/0e7aab34-dd96-42ab-9319-efbba9fe730c" />
 1. User visits the app and clicks **Connect Spotify**.
+<img width="1896" height="897" alt="1 0" src="https://github.com/user-attachments/assets/0e7aab34-dd96-42ab-9319-efbba9fe730c" />
 
-<img width="1920" height="1073" alt="2" src="https://github.com/user-attachments/assets/ad30a877-837f-4dad-af19-b28eb1d3821b" />
 2. Spotify OAuth redirects back and NextAuth.js establishes a session.
+<img width="1920" height="1073" alt="2" src="https://github.com/user-attachments/assets/ad30a877-837f-4dad-af19-b28eb1d3821b" />
 
-<img width="1920" height="913" alt="3" src="https://github.com/user-attachments/assets/61c35d87-ea2b-452f-a4c6-7dce35ef8b8e" />
 3. A server action fetches the user's recent tracks and batches artist lookups to resolve genres.
+<img width="1920" height="913" alt="3" src="https://github.com/user-attachments/assets/61c35d87-ea2b-452f-a4c6-7dce35ef8b8e" />
 
-<img width="1920" height="1445" alt="4 1" src="https://github.com/user-attachments/assets/1820ecf6-a9ea-4dce-bd8d-7f93dfe27c44" />
-<img width="1920" height="913" alt="4 2" src="https://github.com/user-attachments/assets/3bc67364-23a3-41c8-a6d3-cc7bfd146e3e" />
 4. The processed payload is sent to the Express backend, which calls the AI adapter and returns a personality summary.
 5. The summary is saved to MongoDB with a unique `shareId`.
+<img width="1920" height="1445" alt="4 1" src="https://github.com/user-attachments/assets/1820ecf6-a9ea-4dce-bd8d-7f93dfe27c44" />
+<img width="1920" height="913" alt="4 2" src="https://github.com/user-attachments/assets/3bc67364-23a3-41c8-a6d3-cc7bfd146e3e" />
 
-<img width="1920" height="1610" alt="share-page" src="https://github.com/user-attachments/assets/878434be-dc26-4997-9ed3-3962753d62c5" />
 6. The user sees their personality card and can copy a public link at `/share/[shareId]`.
+<img width="1920" height="1610" alt="share-page" src="https://github.com/user-attachments/assets/878434be-dc26-4997-9ed3-3962753d62c5" />
 
 > Screenshots / GIFs to be added.
 
