@@ -50,6 +50,7 @@ export async function fetchRecentTracks() {
         artist: artist.name,
         playCount: (trackMap.get(track.id)?.playCount || 0) + 1,
         albumCover: track.album.images[0].url,
+        spotifyUrl: track.external_urls.spotify,
       });
 
       artistMap.set(artist.id, {
@@ -58,6 +59,7 @@ export async function fetchRecentTracks() {
         playCount: (artistMap.get(artist.id)?.playCount || 0) + 1,
         avatarUrl: "",
         genres: [],
+        spotifyUrl: artist.external_urls.spotify,
       });
     }
 

@@ -22,7 +22,8 @@ export async function processListeningHistory() {
         playCount: item[1].playCount,
         genres: genreMap.get(item[0])?.genres || [],
         avatarUrl: genreMap.get(item[0])?.avatarUrl || "",
-        popularity: genreMap.get(item[0])?.popularity,
+        popularity: genreMap.get(item[0])?.popularity || 0,
+        spotifyUrl: item[1].spotifyUrl,
       });
     }
 

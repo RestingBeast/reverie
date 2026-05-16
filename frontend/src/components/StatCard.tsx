@@ -129,10 +129,12 @@ function TrackRow({ track, rank }: { track: TrackInfo; rank: number }) {
       <div className="flex flex-col min-w-0 flex-1">
         <span
           title={track.name}
-          className="font-body text-white/90 text-xs sm:text-sm md:text-base font-medium leading-snug truncate
+          className="font-body text-white/80 text-xs sm:text-sm md:text-base font-medium leading-snug truncate
           group-hover:text-white transition-colors"
         >
-          {track.name}
+          <a href={track.spotifyUrl} target="_blank" rel="noopener noreferrer">
+            {track.name}
+          </a>
         </span>
         {track.artist && (
           <span
@@ -175,7 +177,9 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
         group-hover:text-white transition-colors"
         title={artist.name}
       >
-        {artist.name}
+        <a href={artist.spotifyUrl} target="_blank" rel="noopener noreferrer">
+          {artist.name}
+        </a>
       </span>
 
       {/* The Neon Bar */}

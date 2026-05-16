@@ -12,6 +12,7 @@ const SummarySchema = new mongoose.Schema({
       artist: String,
       playCount: Number,
       albumCover: String,
+      spotifyUrl: String,
     },
   ],
   topArtists: [
@@ -22,6 +23,7 @@ const SummarySchema = new mongoose.Schema({
       genres: [String],
       avatarUrl: String,
       popularity: Number,
+      spotifyUrl: String,
     },
   ],
   topGenres: [
