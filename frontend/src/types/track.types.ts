@@ -4,6 +4,7 @@ export type TrackInfo = {
   artist: string;
   playCount: number;
   albumCover: string;
+  spotifyUrl: string;
 };
 
 export type TrackMap = Map<string, TrackInfo>;

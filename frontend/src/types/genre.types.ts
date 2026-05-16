@@ -1,7 +1,7 @@
 export type GenreInfo = {
   genres: string[];
   avatarUrl: string;
-  popularity?: number;
+  popularity: number;
 };
 
 export type GenreCountInfo = {

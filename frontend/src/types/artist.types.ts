@@ -5,6 +5,7 @@ export type ArtistInfo = {
   genres: string[];
   avatarUrl: string;
   popularity?: number;
+  spotifyUrl: string;
 };
 
 export type ArtistMap = Map<string, ArtistInfo>;

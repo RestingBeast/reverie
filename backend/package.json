@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec 'node --env-file=.env.dev' src/app.js",
+    "dev": "nodemon --exec \"node --env-file=.env.dev\" src/app.js",
     "seed": "node --env-file=.env.dev scripts/seed.js"
   },
   "keywords": [],

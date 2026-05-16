@@ -18,6 +18,7 @@ const track = z.object({
   artist: z.string().max(32, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
   albumCover: z.url(invalidUrl),
+  spotifyUrl: z.url(invalidUrl),
 });
 
 const artist = z.object({
@@ -27,6 +28,7 @@ const artist = z.object({
   genres: z.array(z.string().max(32, maxChar)).max(30),
   avatarUrl: z.url(invalidUrl),
   popularity: z.number().min(0).max(100),
+  spotifyUrl: z.url(invalidUrl),
 });
 
 const genre = z.object({
