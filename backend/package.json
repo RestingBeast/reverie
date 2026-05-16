@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env.dev src/app.js",
+    "dev": "nodemon --exec 'node --env-file=.env.dev' src/app.js",
     "seed": "node --env-file=.env.dev scripts/seed.js"
   },
   "keywords": [],
@@ -20,5 +20,8 @@
     "mongoose": "^9.6.2",
     "nanoid": "^5.1.11",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

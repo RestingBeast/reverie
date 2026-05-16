@@ -1,0 +1,26 @@
+services:
+  frontend:
+    image: node:26
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm install && sleep 3 && npm run dev"
+    ports:
+     - 3000:3000
+    networks:
+     - mynetwork
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+  backend:
+    image: node:26
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: sh -c "npm install && sleep 3 && npm run dev"
+    ports:
+      - 5000:5000
+    networks:
+     - mynetwork
+networks:
+  mynetwork:
+    driver: bridge

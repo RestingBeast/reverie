@@ -14,7 +14,7 @@ const invalidUrl = {
 
 const track = z.object({
   trackId: z.string().max(32, maxChar),
-  name: z.string().max(32, maxChar),
+  name: z.string().max(256, maxChar),
   artist: z.string().max(32, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
   albumCover: z.url(invalidUrl),
@@ -30,7 +30,7 @@ const artist = z.object({
 });
 
 const genre = z.object({
-  genres: z.array(z.string().max(32, maxChar)).max(30),
+  genre: z.string().max(32, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
 });
 
