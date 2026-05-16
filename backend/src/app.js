@@ -18,8 +18,14 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 connectDB();
-
+app.set("trust proxy", 1);
 app.use(helmet());
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
+if (!FRONTEND_URL && process.env.NODE_ENV === "production") {
+  console.error("FATAL: FRONTEND_URL must be set in production.");
+  process.exit(1);
+}
 
 app.use(
   cors({
