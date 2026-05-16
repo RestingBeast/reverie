@@ -32,10 +32,10 @@ export const generateSummary = async ({
   tracks,
   artists,
   genres,
-}: Props) => {
+}: Props): Promise<Summary> => {
   try {
     const session = await getServerSession(authOptions);
-    if (!session) return new Error("Not Authenticated");
+    if (!session) throw new Error("Not Authenticated");
     const token = await mintInternalToken(spotifyUserId);
     const body = JSON.stringify({
       displayName,
@@ -51,7 +51,7 @@ export const generateSummary = async ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: body,
       },
