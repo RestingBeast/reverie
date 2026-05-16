@@ -81,7 +81,7 @@ function cleanJsonString(rawResponse) {
 
 export async function generateSummary(req, res) {
   try {
-    generateSummarySchema.parse(req, body);
+    generateSummarySchema.parse(req.body);
     const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } =
       req.body;
     const prompt = buildPrompt({ tracks, artists, genres, displayName });
