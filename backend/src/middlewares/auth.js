@@ -1,8 +1,20 @@
-export function requireAuth(req, res, next) {
-  const secret = req.headers["x-api-secret"];
-  if (!secret || secret !== process.env.INTERNAL_API_SECRET) {
+import { jwtVerify } from "jose";
+
+export async function requireAuth(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader?.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized." });
   }
+  try {
+    const token = authHeader.split(" ")[1];
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-  next();
+    const { payload } = await jwtVerify(token, secret, {
+      issuer: "Sonic-Self Client",
+    });
+    req.spotifyUserId = payload.sub;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: "Unauthorized." });
+  }
 }
