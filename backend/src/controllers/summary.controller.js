@@ -1,8 +1,14 @@
 import Summary from "../models/summary.model.js";
+import {
+  generateSummarySchema,
+  getSummarySchema,
+} from "../schema/summary.schema.js";
 import { generateNarrative } from "../services/ai/index.js";
+import z from "zod";
 
 export const GetSummary = async (req, res) => {
   try {
+    getSummarySchema.parse(req.params);
     const { shareId } = req.params;
     const summary = await Summary.findOne({ shareId }).exec();
 
@@ -14,7 +20,8 @@ export const GetSummary = async (req, res) => {
 
     return res.status(200).json(summary);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    if (err instanceof z.ZodError) return res.status(400).json(err.issues);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -73,21 +80,10 @@ function cleanJsonString(rawResponse) {
 }
 
 export async function generateSummary(req, res) {
-  const {
-    spotifyUserId,
-    displayName,
-    avatarUrl,
-    tracks,
-    artists,
-    popularity,
-    genres,
-  } = req.body;
-
-  if (!tracks?.length || !artists?.length || !spotifyUserId) {
-    return res.status(400).json({ error: "Missing required listening data." });
-  }
-
   try {
+    generateSummarySchema.parse(req, body);
+    const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } =
+      req.body;
     const prompt = buildPrompt({ tracks, artists, genres, displayName });
     const raw = await generateNarrative(prompt);
     const parsed = JSON.parse(cleanJsonString(raw));
@@ -100,7 +96,6 @@ export async function generateSummary(req, res) {
     const summary = await Summary.create({
       spotifyUserId,
       displayName,
-      popularity,
       avatarUrl,
       topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 4),
       topArtists: artists
@@ -114,6 +109,8 @@ export async function generateSummary(req, res) {
     return res.status(201).json(summary);
   } catch (err) {
     console.log("Summary generation failed", err);
+    if (err instanceof z.ZodError)
+      return res.status(400).json({ error: err.issues });
     return res.status(500).json({ error: "Internal Server Error." });
   }
 }

@@ -23,6 +23,14 @@ export const generateSummary = async ({
   genres,
 }: Props) => {
   try {
+    const body = JSON.stringify({
+      spotifyUserId,
+      displayName,
+      avatarUrl,
+      tracks: [...tracks.values()],
+      artists: [...artists.values()],
+      genres: [...genres.values()],
+    });
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000"}/api/summaries/generate`,
       {
@@ -31,14 +39,7 @@ export const generateSummary = async ({
           "Content-Type": "application/json",
           "x-api-secret": process.env.INTERNAL_API_SECRET!,
         },
-        body: `{
-                  "spotifyUserId": "${spotifyUserId}",
-                  "displayName": "${displayName}",
-                  "avatarUrl": "${avatarUrl}",
-                  "tracks": ${JSON.stringify(Array.from(tracks.values()))},
-                  "artists": ${JSON.stringify(Array.from(artists.values()))},
-                  "genres": ${JSON.stringify(Array.from(genres.values()))}
-                }`,
+        body: body,
       },
     );
 
