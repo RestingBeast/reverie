@@ -35,7 +35,6 @@ const genre = z.object({
 });
 
 export const generateSummarySchema = z.object({
-  spotifyUserId: z.string().max(32, maxChar),
   displayName: z.string().max(32, maxChar),
   avatarUrl: z.url(invalidUrl),
   tracks: z.array(track).max(50, {

@@ -8,13 +8,8 @@ import dns from "node:dns";
 // Using Google Public DNS
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
-if (
-  !process.env.INTERNAL_API_SECRET ||
-  process.env.INTERNAL_API_SECRET.length < 32
-) {
-  console.error(
-    "FATAL: INTERNAL_API_SECRET must be set and at least 32 characters.",
-  );
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+  console.error("FATAL:JWT_SECRET must be set and at least 32 characters.");
   process.exit(1);
 }
 
