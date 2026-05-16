@@ -129,7 +129,7 @@ export default function SummaryCard({
       <StatCard variant="tracks" tracks={summary.topTracks} />
 
       {/* ── Top Artists + Top Genres (side by side on sm+) ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <StatCard variant="artists" artists={summary.topArtists} />
         <StatCard variant="genres" genres={summary.topGenres} />
       </div>

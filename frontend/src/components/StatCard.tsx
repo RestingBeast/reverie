@@ -128,13 +128,17 @@ function TrackRow({ track, rank }: { track: TrackInfo; rank: number }) {
       {/* Title + artist stacked */}
       <div className="flex flex-col min-w-0 flex-1">
         <span
+          title={track.name}
           className="font-body text-white/90 text-xs sm:text-sm md:text-base font-medium leading-snug truncate
           group-hover:text-white transition-colors"
         >
           {track.name}
         </span>
         {track.artist && (
-          <span className="font-body text-white/35 text-[10px] sm:text-[12px] md:text-[14px] leading-snug truncate">
+          <span
+            title={track.artist}
+            className="font-body text-white/35 text-[10px] sm:text-[12px] md:text-[14px] leading-snug truncate"
+          >
             {track.artist}
           </span>
         )}
@@ -167,8 +171,9 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
 
       {/* Name */}
       <span
-        className="font-body text-white/80 text-xs sm:text-sm lg:text-base font-medium flex-1 truncate
+        className="font-body text-white/80 text-xs sm:text-sm md:text-base font-medium flex-1 truncate
         group-hover:text-white transition-colors"
+        title={artist.name}
       >
         {artist.name}
       </span>
