@@ -30,7 +30,7 @@ export default function NotFound() {
           <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white uppercase ">
             Signal <span className="text-cyan-400">Lost.</span>
           </h2>
-          <p className="max-w-md mx-auto text-slate-400 font-mono tracking-widest text-xs sm:text-sm leading-relaxed uppercase">
+          <p className="max-w-md mx-auto text-slate-400 font-body tracking-widest text-xs sm:text-sm leading-relaxed uppercase">
             The frequency you are looking for has faded into the static. This
             narrative does not exist.
           </p>

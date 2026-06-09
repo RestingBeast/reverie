@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+  --font-display: var(--font-bebas-neue);
+  --font-body: var(--font-dm-sans);
+  --tracking-ultra: 0.2em;
+  --tracking-mega: 0.3em;
   --keyframes-shimmer: {
     from {
       transform: translateX(-100%);

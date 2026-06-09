@@ -96,7 +96,7 @@ export default function ResultPage() {
           >
             Hey, {session?.user.name}
           </h1>
-          <p className="font-body text-[#b8a9c9]/60 text-lg tracking-[0.3em] mb-2 text-center">
+          <p className="font-body text-[#b8a9c9]/60 text-lg tracking-mega mb-2 text-center">
             While we scan your sonic echoes, your unique narrative is beginning
             to take shape.
           </p>

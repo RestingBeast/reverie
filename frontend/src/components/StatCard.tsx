@@ -56,7 +56,7 @@ function AvatarPlaceholder() {
 
 function RankBadge({
   rank,
-  size = "text-[11px]",
+  size = "text-xs",
 }: {
   rank: number;
   size?: string;
@@ -139,7 +139,7 @@ function TrackRow({ track, rank }: { track: TrackInfo; rank: number }) {
         {track.artist && (
           <span
             title={track.artist}
-            className="font-body text-white/35 text-[10px] sm:text-[12px] md:text-[14px] leading-snug truncate"
+            className="font-body text-white/35 text-xs sm:text-sm leading-snug truncate"
           >
             {track.artist}
           </span>
