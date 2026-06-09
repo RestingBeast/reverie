@@ -6,7 +6,7 @@ const ResonanceBar = ({ score }: ResonanceBarProps) => {
   return (
     <div className="w-full max-w-1/4 sm:max-w-45 md:max-w-60 lg:max-w-38 flex flex-col gap-1.5">
       <div className="flex justify-between items-end px-0.5">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-purple-300/60">
+        <span className="text-xs font-bold uppercase tracking-widest text-purple-300/60">
           Resonance
         </span>
       </div>

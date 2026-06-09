@@ -17,7 +17,7 @@ export default function Landing() {
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-12 lg:px-20 max-w-3xl mx-auto">
         {/* Headline */}
         <div className="space-y-2">
-          <h1 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          <h1 className="font-display text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             One Echo <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400">
               Infinite Layers
@@ -27,7 +27,7 @@ export default function Landing() {
         {/* Subheading */}
         <p
           className="
-            text-white/75 text-base md:text-xl
+            font-body text-white/75 text-base md:text-xl
             max-w-xs sm:max-w-sm md:max-w-md
             leading-relaxed tracking-wide
             mt-2 md:mt-4 mb-8 md:mb-10

@@ -57,7 +57,7 @@ export default function SummaryCard({
       {/* ── Sharer header ── */}
       {readonly && (
         <div className="flex flex-col items-center gap-1 mb-6 text-center">
-          <p className="font-body text-white/40 text-xs tracking-[0.3em] uppercase">
+          <p className="font-body text-white/40 text-xs tracking-mega uppercase">
             [Signal Captured]
           </p>
           <h2 className="font-display text-white/80 text-2xl sm:text-3xl tracking-widest uppercase">
