@@ -17,8 +17,6 @@ services:
     volumes:
       - ./backend:/app
     command: sh -c "npm install && sleep 3 && npm run dev"
-    ports:
-      - 5000:5000
     networks:
      - mynetwork
 networks:
