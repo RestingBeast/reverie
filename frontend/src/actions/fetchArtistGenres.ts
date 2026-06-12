@@ -32,7 +32,9 @@ export async function fetchArtistGenres(artistsIds: string[]) {
     for (const artist of data.artists) {
       genreMap.set(artist.id, {
         genres: artist.genres || [],
-        avatarUrl: artist.images[0].url,
+        avatarUrl:
+          artist.images?.[0]?.url ??
+          `${process.env.NEXT_PUBLIC_SITE_URL}/avatar-placeholder.svg`,
         popularity: artist.popularity,
       });
     }

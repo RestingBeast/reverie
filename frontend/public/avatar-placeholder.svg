@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0f2e"/>
+      <stop offset="100%" stop-color="#140d24"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6b8a" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#fbbf5e" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b8a"/>
+      <stop offset="100%" stop-color="#fbbf5e"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="50" fill="url(#bgGrad)"/>
+  <circle cx="50" cy="50" r="50" fill="url(#halo)"/>
+  <circle cx="50" cy="50" r="47" fill="none" stroke="#ff6b8a" stroke-width="1" stroke-opacity="0.3"/>
+  <circle cx="50" cy="50" r="49" fill="none" stroke="#fbbf5e" stroke-width="0.5" stroke-opacity="0.15"/>
+  <g fill="url(#iconGrad)" opacity="0.85">
+    <circle cx="50" cy="38" r="11"/>
+    <path d="M50 52c-7.5 0-22 3.8-22 11v5h44v-5c0-7.2-14.5-11-22-11z"/>
+  </g>
+</svg>
