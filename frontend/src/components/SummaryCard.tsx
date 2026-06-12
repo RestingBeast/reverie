@@ -44,10 +44,10 @@ export default function SummaryCard({
     <div
       className="
         relative w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl
-        bg-[#0e0c1e]/80 backdrop-blur-xl
-        border border-white/10
+        bg-[#140d24]/80 backdrop-blur-xl
+        border border-white/5
         rounded-3xl
-        shadow-[0_0_80px_-10px_rgba(120,80,255,0.35)]
+        shadow-[0_0_80px_-10px_rgba(255,107,138,0.2)]
         overflow-hidden
         mx-auto
         p-5 sm:p-6 md:p-8
@@ -73,7 +73,7 @@ export default function SummaryCard({
       <div className="flex items-center px-3 gap-4">
         {/* Avatar */}
         <div className="relative shrink-0">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-linear-to-br from-purple-500/40 to-cyan-500/20 border-2 border-white/20 overflow-hidden flex items-center justify-center">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-linear-to-br from-coral/40 to-amber/20 border-2 border-white/20 overflow-hidden flex items-center justify-center">
             {summary.avatarUrl ? (
               <img
                 src={summary.avatarUrl}
@@ -91,7 +91,7 @@ export default function SummaryCard({
             )}
           </div>
           {/* Halo ring glow */}
-          <div className="absolute -inset-1 rounded-full bg-linear-to-br from-purple-400/20 to-cyan-300/10 blur-md -z-10" />
+          <div className="absolute -inset-1 rounded-full bg-linear-to-br from-coral/20 to-amber/10 blur-md -z-10" />
         </div>
 
         {/* Name + vibe */}
@@ -104,7 +104,7 @@ export default function SummaryCard({
               font-display
               text-lg sm:text-xl
               tracking-wide leading-snug mt-1
-              bg-linear-to-r from-cyan-300 via-purple-300 to-pink-300
+              bg-linear-to-r from-coral via-amber to-lavender
               bg-clip-text text-transparent
             "
           >
@@ -146,9 +146,9 @@ export default function SummaryCard({
               copied
                 ? `bg-linear-to-r from-emerald-600 to-green-400 font-bold border
                  border-white/10 opacity-80 shadow-none pointer-events-none`
-                : `bg-linear-to-r from-purple-500 to-cyan-500 hover:from-purple-400
-                hover:to-cyan-400 shadow-[0_0_20px_2px_rgba(120,80,255,0.4)] 
-                  hover:shadow-[0_0_28px_4px_rgba(120,80,255,0.6)]`
+                : `bg-linear-to-r from-coral to-amber hover:from-coral/90
+                hover:to-amber/90 shadow-[0_0_20px_2px_rgba(255,107,138,0.4)] 
+                  hover:shadow-[0_0_28px_4px_rgba(255,107,138,0.6)]`
             }
           `}
         />
@@ -157,11 +157,11 @@ export default function SummaryCard({
           buttonText={buttonText ?? "Recalibrate Narrative"}
           onClick={readonly ? handleRegenerate : onRegenerate}
           className="
-            bg-linear-to-r from-yellow-400 via-pink-400 to-purple-500
-            hover:from-yellow-300 hover:via-pink-300 hover:to-purple-400
+            bg-linear-to-r from-amber via-coral to-lavender
+            hover:from-amber/90 hover:via-coral/90 hover:to-lavender/90
             text-white
-            shadow-[0_0_20px_2px_rgba(251,191,36,0.4)]
-            hover:shadow-[0_0_28px_4px_rgba(251,191,36,0.6)]
+            shadow-[0_0_20px_2px_rgba(251,191,94,0.4)]
+            hover:shadow-[0_0_28px_4px_rgba(251,191,94,0.6)]
           "
         />
       </div>

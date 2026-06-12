@@ -25,19 +25,19 @@ interface TrackImageGridProps {
 }
 
 const COLORS = [
-  "text-cyan-300",
-  "text-purple-300",
-  "text-pink-300",
-  "text-green-300",
-  "text-yellow-300",
+  "text-coral",
+  "text-amber",
+  "text-lavender",
+  "text-warm-gold",
+  "text-coral",
 ];
 
 const GLOWS = [
-  "drop-shadow-[0_0_6px_rgba(103,232,249,0.8)]", // cyan-300
-  "drop-shadow-[0_0_6px_rgba(216,180,254,0.8)]", // purple-300
-  "drop-shadow-[0_0_6px_rgba(249,168,212,0.8)]", // pink-300
-  "drop-shadow-[0_0_6px_rgba(134,239,172,0.8)]", // green-300
-  "drop-shadow-[0_0_6px_rgba(253,224,71,0.8)]", // yellow-300
+  "drop-shadow-[0_0_6px_rgba(255,107,138,0.8)]", // coral
+  "drop-shadow-[0_0_6px_rgba(251,191,94,0.8)]", // amber
+  "drop-shadow-[0_0_6px_rgba(167,139,250,0.8)]", // lavender
+  "drop-shadow-[0_0_6px_rgba(252,211,77,0.8)]", // warm-gold
+  "drop-shadow-[0_0_6px_rgba(255,107,138,0.8)]", // coral
 ];
 
 function AvatarPlaceholder() {
@@ -80,7 +80,7 @@ const StatCardHeader = ({ children }: { children: React.ReactNode }) => (
   <h3
     className="font-display text-white text-base 
     tracking-widest uppercase mb-2 md:text-lg lg:text-xl 
-    drop-shadow-[0_0_6px_rgba(2535,255,255,0.4)]"
+    drop-shadow-[0_0_6px_rgba(255,200,150,0.3)]"
   >
     {children}
   </h3>
@@ -157,7 +157,7 @@ function ArtistRow({ artist, rank }: { artist: ArtistInfo; rank: number }) {
       {/* Avatar */}
       <div
         className="w-10 h-10 shrink-0 rounded-full overflow-hidden bg-linear-to-br
-        from-purple-500/30 to-cyan-500/20 border border-white/10 flex 
+        from-coral/30 to-amber/20 border border-white/10 flex 
         items-center justify-center"
       >
         {artist.avatarUrl ? (

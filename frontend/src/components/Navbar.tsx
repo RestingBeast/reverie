@@ -9,7 +9,7 @@ export default function Navbar({ isPublic }: { isPublic?: boolean }) {
       >
         <a
           href="/"
-          className="font-display text-white text-base md:text-lg font-bold tracking-ultra uppercase select-none"
+          className="font-display text-white text-base md:text-lg tracking-ultra uppercase select-none"
         >
           Sonic Self
         </a>
