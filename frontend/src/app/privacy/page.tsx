@@ -37,7 +37,7 @@ export default function PrivacyPage() {
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-widest uppercase">
               Privacy{" "}
               <span
-                className="bg-linear-to-r from-cyan-300 via-purple-300 to-pink-300
+                className="bg-linear-to-r from-coral via-amber to-lavender
                 bg-clip-text text-transparent"
               >
                 Policy
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Divider */}
-          <div className="h-px w-full bg-linear-to-r from-purple-500/30 via-cyan-500/20 to-transparent" />
+          <div className="h-px w-full bg-linear-to-r from-coral/30 via-amber/20 to-transparent" />
 
           {/* Sections */}
           <div className="flex flex-col gap-8">
@@ -62,8 +62,8 @@ export default function PrivacyPage() {
                 <div className="flex items-center gap-3">
                   {/* Rank-style index */}
                   <span
-                    className="font-display text-xs tracking-widest text-cyan-300
-                    drop-shadow-[0_0_6px_rgba(103,232,249,0.8)]"
+                    className="font-display text-xs tracking-widest text-coral
+                    drop-shadow-[0_0_6px_rgba(255,107,138,0.8)]"
                   >
                     0{i + 1}
                   </span>
@@ -79,7 +79,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Footer note */}
-          <div className="h-px w-full bg-linear-to-r from-purple-500/30 via-cyan-500/20 to-transparent" />
+          <div className="h-px w-full bg-linear-to-r from-coral/30 via-amber/20 to-transparent" />
           <p className="font-body text-white/25 text-xs tracking-wide text-center">
             Sonic Self · 2026
           </p>

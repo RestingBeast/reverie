@@ -10,16 +10,16 @@ export default function Landing() {
         aria-hidden="true"
       />
 
-      {/* Dark overlay to help text contrast */}
-      <div className="absolute inset-0 bg-[#0a0a1a]/40" aria-hidden="true" />
+      {/* Warm overlay to help text contrast */}
+      <div className="absolute inset-0 bg-[#0f0a1a]/50" aria-hidden="true" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-12 lg:px-20 max-w-3xl mx-auto">
         {/* Headline */}
         <div className="space-y-2">
-          <h1 className="font-display text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          <h1 className="font-display text-5xl md:text-7xl tracking-tighter text-white uppercase drop-shadow-[0_0_15px_rgba(255,200,150,0.3)]">
             One Echo <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-coral to-amber">
               Infinite Layers
             </span>
           </h1>

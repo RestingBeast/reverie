@@ -8,11 +8,11 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen w-full bg-[#0B0E14] flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+    <div className="min-h-screen w-full bg-[#0f0a1a] flex flex-col items-center justify-center p-6 text-center overflow-hidden">
       {/* Background Decorative Element */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-purple-500/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 left-1/4 w-75 h-75 bg-cyan-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-coral/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 left-1/4 w-75 h-75 bg-amber/10 rounded-full blur-[100px]" />
       </div>
 
       <motion.div
@@ -28,7 +28,7 @@ export default function NotFound() {
 
         <div className="space-y-4">
           <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white uppercase ">
-            Signal <span className="text-cyan-400">Lost.</span>
+            Signal <span className="text-coral">Lost.</span>
           </h2>
           <p className="max-w-md mx-auto text-slate-400 font-body tracking-widest text-xs sm:text-sm leading-relaxed uppercase">
             The frequency you are looking for has faded into the static. This
@@ -41,7 +41,7 @@ export default function NotFound() {
           <ActionButton
             buttonText="Recalibrate to Origin"
             onClick={() => router.push("/")}
-            className="bg-linear-to-r from-purple-500 to-cyan-500 text-white shadow-[0_0_20px_rgba(120,80,255,0.4)] px-12"
+            className="bg-linear-to-r from-coral to-amber text-white shadow-[0_0_20px_rgba(255,107,138,0.4)] px-12"
           />
         </div>
       </motion.div>

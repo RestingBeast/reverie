@@ -66,13 +66,13 @@ export default function ProfileMenu() {
             onClick={() => setOpen((prev) => !prev)}
             className="
               w-9 h-9 md:w-10 md:h-10 rounded-full
-              bg-linear-to-br from-purple-500/50 to-cyan-500/30
+              bg-linear-to-br from-coral/50 to-amber/30
               border-2 border-white/20 hover:border-white/50
               overflow-hidden
               flex items-center justify-center
               transition-all duration-200
-              focus:outline-none focus:ring-2 focus:ring-purple-400/60
-              hover:shadow-[0_0_14px_2px_rgba(120,80,255,0.4)]
+              focus:outline-none focus:ring-2 focus:ring-coral/60
+              hover:shadow-[0_0_14px_2px_rgba(255,107,138,0.4)]
             "
             aria-label="Profile menu"
             aria-expanded={open}
@@ -92,10 +92,10 @@ export default function ProfileMenu() {
               className="
                 absolute right-0 mt-3
                 w-44
-                bg-[#0e0c1e]/90 backdrop-blur-xl
+                bg-[#140d24]/90 backdrop-blur-xl
                 border border-white/10
                 rounded-2xl
-                shadow-[0_8px_40px_-4px_rgba(80,40,180,0.4)]
+                shadow-[0_8px_40px_-4px_rgba(255,107,138,0.25)]
                 overflow-hidden
               "
             >

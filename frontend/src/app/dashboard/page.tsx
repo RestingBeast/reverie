@@ -67,10 +67,10 @@ export default function ResultPage() {
         <div
           className="
               relative w-full max-w-sm sm:max-w-md md:max-w-lg
-              bg-[#0e0c1e]/80 backdrop-blur-xl
-              border border-white/10
+              bg-[#140d24]/80 backdrop-blur-xl
+              border border-white/5
               rounded-3xl
-              shadow-[0_0_80px_-10px_rgba(120,80,255,0.35)]
+              shadow-[0_0_80px_-10px_rgba(255,107,138,0.2)]
               overflow-hidden
               mx-auto mt-24
               p-5 sm:p-6 md:p-8
@@ -90,13 +90,13 @@ export default function ResultPage() {
           </div>
           <h1
             className="
-              font-display text-[#f0ece4] text-2xl tracking-widest
-              drop-shadow-[0_0_30px_rgba(220,200,255,0.3)]
+              font-display text-[#f5ece4] text-2xl tracking-widest
+              drop-shadow-[0_0_30px_rgba(255,200,150,0.3)]
             "
           >
             Hey, {session?.user.name}
           </h1>
-          <p className="font-body text-[#b8a9c9]/60 text-lg tracking-mega mb-2 text-center">
+          <p className="font-body text-white/50 text-lg tracking-mega mb-2 text-center">
             While we scan your sonic echoes, your unique narrative is beginning
             to take shape.
           </p>
@@ -105,11 +105,11 @@ export default function ResultPage() {
             buttonText={"Decode my Sonic Self"}
             className={`
               w-full
-              bg-linear-to-r from-orange-400 to-pink-500
-              hover:from-orange-300 hover:to-pink-400
+              bg-linear-to-r from-coral to-amber
+              hover:from-coral/90 hover:to-amber/90
               text-white
-              shadow-[0_0_20px_2px_rgba(251,146,60,0.4)]
-              hover:shadow-[0_0_28px_4px_rgba(251,146,60,0.6)]
+              shadow-[0_0_20px_2px_rgba(255,107,138,0.4)]
+              hover:shadow-[0_0_28px_4px_rgba(255,107,138,0.6)]
             `}
           />
         </div>

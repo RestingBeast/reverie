@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-bebas-neue);
+  --font-display: var(--font-bungee);
   --font-body: var(--font-dm-sans);
   --tracking-ultra: 0.2em;
   --tracking-mega: 0.3em;
+  --color-coral: #ff6b8a;
+  --color-amber: #fbbf5e;
+  --color-lavender: #a78bfa;
+  --color-warm-gold: #fcd34d;
   --keyframes-shimmer: {
     from {
       transform: translateX(-100%);
@@ -17,12 +21,12 @@
 }
 
 :root {
-  background-color: #07071a;
+  background-color: #0f0a1a;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #07071a;
+  background-color: #0f0a1a;
 }
 
 body {

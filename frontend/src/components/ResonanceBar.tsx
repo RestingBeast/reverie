@@ -5,8 +5,8 @@ interface ResonanceBarProps {
 const ResonanceBar = ({ score }: ResonanceBarProps) => {
   return (
     <div className="w-full max-w-1/4 sm:max-w-45 md:max-w-60 lg:max-w-38 flex flex-col gap-1.5">
-      <div className="flex justify-between items-end px-0.5">
-        <span className="text-xs font-bold uppercase tracking-widest text-purple-300/60">
+        <div className="flex justify-between items-end px-0.5">
+        <span className="text-xs font-bold uppercase tracking-widest text-coral/60">
           Resonance
         </span>
       </div>
@@ -19,8 +19,8 @@ const ResonanceBar = ({ score }: ResonanceBarProps) => {
           style={{
             width: `${score}%`,
             background:
-              "linear-gradient(90deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)",
-            boxShadow: "0 0 12px rgba(168, 85, 247, 0.6)",
+              "linear-gradient(90deg, #ff6b8a 0%, #fbbf5e 50%, #a78bfa 100%)",
+            boxShadow: "0 0 12px rgba(255, 107, 138, 0.5)",
           }}
         >
           {/* Animated Wave Highlight */}

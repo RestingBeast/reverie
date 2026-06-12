@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import { Bungee, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AuthProvider from "@/components/AuthProvider";
 
-const bebasNeue = Bebas_Neue({
+const bungee = Bungee({
   weight: "400",
-  variable: "--font-bebas-neue",
+  variable: "--font-bungee",
   subsets: ["latin"],
 });
 
@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Sonic Self",
-  description: "Later",
+  description: "Your listening history, decoded into a story only you could soundtrack",
 };
 
 export default function RootLayout({
@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebasNeue.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${bungee.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="bg-[#07071a]">
+      <body className="bg-[#0f0a1a]">
         <AuthProvider>{children}</AuthProvider>
         <SpeedInsights />
       </body>
