@@ -6,6 +6,10 @@ import {
 import { generateNarrative } from "../services/ai/index.js";
 import z from "zod";
 
+const TOP_TRACKS_COUNT = 4;
+const TOP_ARTISTS_COUNT = 4;
+const TOP_GENRES_COUNT = 3;
+
 export const getSummaries = async (req, res) => {
   try {
     const summaries = await Summary.find({
@@ -178,23 +182,23 @@ export async function generateSummary(req, res) {
     if (!personality || !narrative)
       throw new Error("Missing fields in AI response");
 
-    const selectedTopTracks = selectTopTracks(tracks, 4);
+    const selectedTopTracks = selectTopTracks(tracks, TOP_TRACKS_COUNT);
     const summary = await Summary.create({
       spotifyUserId,
       displayName,
       avatarUrl,
       topTracks: selectedTopTracks,
-      topArtists: selectRelatedArtists(selectedTopTracks, artists, 3),
-      topGenres: [...genres].sort((a, b) => b.playCount - a.playCount).slice(0, 3),
+      topArtists: selectRelatedArtists(selectedTopTracks, artists, TOP_ARTISTS_COUNT),
+      topGenres: [...genres].sort((a, b) => b.playCount - a.playCount).slice(0, TOP_GENRES_COUNT),
       personality,
       aiNarrative: narrative,
     });
 
     return res.status(201).json(summary);
   } catch (err) {
-    console.log("Summary generation failed", err);
+    console.error("Summary generation failed", err);
     if (err instanceof z.ZodError)
       return res.status(400).json({ error: err.issues });
-    return res.status(500).json({ error: "Internal Server Error." });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }

@@ -20,7 +20,7 @@ export async function fetchRecentTracks(opts?: { after?: number }) {
     const res = await fetch(
       `https://api.spotify.com/v1/me/player/recently-played?${params}`,
       {
-        headers: { Authorization: `Bearer ${session?.access_token}` },
+        headers: { Authorization: `Bearer ${session.access_token}` },
       },
     );
     if (res.status === 401) {

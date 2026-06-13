@@ -18,6 +18,7 @@ const summaries = [
         artist: "The Weeknd",
         playCount: 87,
         albumCover: "https://picsum.photos/seed/t001/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t002",
@@ -25,6 +26,7 @@ const summaries = [
         artist: "The Weeknd",
         playCount: 74,
         albumCover: "https://picsum.photos/seed/t002/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t003",
@@ -32,6 +34,7 @@ const summaries = [
         artist: "The Weeknd",
         playCount: 61,
         albumCover: "https://picsum.photos/seed/t003/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t004",
@@ -39,6 +42,7 @@ const summaries = [
         artist: "Lil Nas X",
         playCount: 55,
         albumCover: "https://picsum.photos/seed/t004/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
     ],
     topArtists: [
@@ -49,6 +53,7 @@ const summaries = [
         genres: ["pop", "r&b", "synth-pop"],
         avatarUrl: "https://picsum.photos/seed/a001/100",
         popularity: 97,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a002",
@@ -57,6 +62,7 @@ const summaries = [
         genres: ["hip-hop", "pop rap"],
         avatarUrl: "https://picsum.photos/seed/a002/100",
         popularity: 89,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a003",
@@ -65,6 +71,7 @@ const summaries = [
         genres: ["pop", "r&b", "hip-hop"],
         avatarUrl: "https://picsum.photos/seed/a003/100",
         popularity: 91,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
     ],
     topGenres: [
@@ -88,6 +95,7 @@ const summaries = [
         artist: "SZA",
         playCount: 102,
         albumCover: "https://picsum.photos/seed/t011/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t012",
@@ -95,6 +103,7 @@ const summaries = [
         artist: "SZA",
         playCount: 91,
         albumCover: "https://picsum.photos/seed/t012/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t013",
@@ -102,6 +111,7 @@ const summaries = [
         artist: "Tyla",
         playCount: 78,
         albumCover: "https://picsum.photos/seed/t013/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t014",
@@ -109,6 +119,7 @@ const summaries = [
         artist: "Wizkid ft. Tems",
         playCount: 67,
         albumCover: "https://picsum.photos/seed/t014/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
     ],
     topArtists: [
@@ -119,6 +130,7 @@ const summaries = [
         genres: ["r&b", "neo soul", "indie r&b"],
         avatarUrl: "https://picsum.photos/seed/a011/100",
         popularity: 94,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a012",
@@ -127,6 +139,7 @@ const summaries = [
         genres: ["afrobeats", "pop", "amapiano"],
         avatarUrl: "https://picsum.photos/seed/a012/100",
         popularity: 86,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a013",
@@ -135,6 +148,7 @@ const summaries = [
         genres: ["afrobeats", "dancehall", "reggae"],
         avatarUrl: "https://picsum.photos/seed/a013/100",
         popularity: 88,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
     ],
     topGenres: [
@@ -158,6 +172,7 @@ const summaries = [
         artist: "Porter Robinson & Madeon",
         playCount: 95,
         albumCover: "https://picsum.photos/seed/t021/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t022",
@@ -165,6 +180,7 @@ const summaries = [
         artist: "Porter Robinson",
         playCount: 83,
         albumCover: "https://picsum.photos/seed/t022/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t023",
@@ -172,6 +188,7 @@ const summaries = [
         artist: "Fred again..",
         playCount: 71,
         albumCover: "https://picsum.photos/seed/t023/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
       {
         trackId: "t024",
@@ -179,6 +196,7 @@ const summaries = [
         artist: "Four Tet",
         playCount: 64,
         albumCover: "https://picsum.photos/seed/t024/100",
+        spotifyUrl: "https://open.spotify.com/track/4eNSQkC1V7o5QkXoMvYQpV",
       },
     ],
     topArtists: [
@@ -189,6 +207,7 @@ const summaries = [
         genres: ["electro house", "indie electronic", "future bass"],
         avatarUrl: "https://picsum.photos/seed/a021/100",
         popularity: 78,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a022",
@@ -197,6 +216,7 @@ const summaries = [
         genres: ["uk garage", "electronic", "ambient"],
         avatarUrl: "https://picsum.photos/seed/a022/100",
         popularity: 82,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
       {
         artistId: "a023",
@@ -205,6 +225,7 @@ const summaries = [
         genres: ["folktronica", "microhouse", "ambient"],
         avatarUrl: "https://picsum.photos/seed/a023/100",
         popularity: 71,
+        spotifyUrl: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
       },
     ],
     topGenres: [

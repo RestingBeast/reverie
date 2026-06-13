@@ -236,7 +236,7 @@ export default function StatCard({
               <StatCardHeader>Top Tracks</StatCardHeader>
               <ol className="flex flex-col gap-1">
                 {tracks.map((t, i) => (
-                  <TrackRow track={t} rank={i + 1} key={i} />
+                  <TrackRow track={t} rank={i + 1} key={t.trackId} />
                 ))}
               </ol>
             </div>
@@ -245,7 +245,7 @@ export default function StatCard({
                 gridClassName="h-28 sm:h-full mt-4 sm:mt-0"
                 itemClassName="aspect-square w-full min-h-0 w-auto rounded-md bg-white/10 border border-white/10"
                 imageClassName="rounded-md"
-                items={tracks.map((t, _) => ({
+                items={tracks.map((t) => ({
                   name: t.name,
                   src: t.albumCover,
                 }))}
@@ -261,7 +261,7 @@ export default function StatCard({
           <StatCardHeader>Top Artists</StatCardHeader>
           <ol className="flex flex-col gap-2.5">
             {artists.map((a, i) => (
-              <ArtistRow key={i} artist={a} rank={i + 1} />
+              <ArtistRow key={a.artistId} artist={a} rank={i + 1} />
             ))}
           </ol>
         </>
@@ -273,7 +273,7 @@ export default function StatCard({
           <StatCardHeader>Top Genres</StatCardHeader>
           <ol className="flex flex-col gap-2.5">
             {genres.map((g, i) => (
-              <GenreRow key={i} genre={g.genre} rank={i + 1} />
+              <GenreRow key={g.genre} genre={g.genre} rank={i + 1} />
             ))}
           </ol>
           {/* Waveform accent under genres */}
