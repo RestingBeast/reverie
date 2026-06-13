@@ -14,7 +14,7 @@ export async function deleteSummary(shareId: string): Promise<void> {
     iss: "Reverie Client",
   })
     .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("30s")
+    .setExpirationTime("60s")
     .sign(secret);
 
   const res = await fetch(
