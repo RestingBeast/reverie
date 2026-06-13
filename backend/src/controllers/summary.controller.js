@@ -6,6 +6,36 @@ import {
 import { generateNarrative } from "../services/ai/index.js";
 import z from "zod";
 
+export const getSummaries = async (req, res) => {
+  try {
+    const summaries = await Summary.find({
+      spotifyUserId: req.spotifyUserId,
+    })
+      .sort({ generatedAt: -1 })
+      .exec();
+    return res.status(200).json(summaries);
+  } catch (err) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const deleteSummary = async (req, res) => {
+  try {
+    const { shareId } = req.params;
+    const summary = await Summary.findOne({ shareId }).exec();
+    if (!summary) {
+      return res.status(404).json({ message: "Summary not found." });
+    }
+    if (summary.spotifyUserId !== req.spotifyUserId) {
+      return res.status(403).json({ error: "Forbidden." });
+    }
+    await Summary.deleteOne({ shareId }).exec();
+    return res.status(204).send();
+  } catch (err) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export const GetSummary = async (req, res) => {
   try {
     getSummarySchema.parse(req.params);
