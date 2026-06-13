@@ -40,7 +40,7 @@ export const deleteSummary = async (req, res) => {
   }
 };
 
-export const GetSummary = async (req, res) => {
+export const getSummary = async (req, res) => {
   try {
     getSummarySchema.parse(req.params);
     const { shareId } = req.params;
@@ -172,8 +172,15 @@ export async function generateSummary(req, res) {
   try {
     generateSummarySchema.parse(req.body);
     const spotifyUserId = req.spotifyUserId;
-    const { displayName, avatarUrl, tracks, artists, genres, timeSlotLabel } = req.body;
-    const prompt = buildPrompt({ tracks, artists, genres, displayName, timeSlotLabel });
+    const { displayName, avatarUrl, tracks, artists, genres, timeSlotLabel } =
+      req.body;
+    const prompt = buildPrompt({
+      tracks,
+      artists,
+      genres,
+      displayName,
+      timeSlotLabel,
+    });
     const raw = await generateNarrative(prompt);
     const parsed = JSON.parse(cleanJsonString(raw));
     const personality = parsed.personality;
@@ -188,8 +195,14 @@ export async function generateSummary(req, res) {
       displayName,
       avatarUrl,
       topTracks: selectedTopTracks,
-      topArtists: selectRelatedArtists(selectedTopTracks, artists, TOP_ARTISTS_COUNT),
-      topGenres: [...genres].sort((a, b) => b.playCount - a.playCount).slice(0, TOP_GENRES_COUNT),
+      topArtists: selectRelatedArtists(
+        selectedTopTracks,
+        artists,
+        TOP_ARTISTS_COUNT,
+      ),
+      topGenres: [...genres]
+        .sort((a, b) => b.playCount - a.playCount)
+        .slice(0, TOP_GENRES_COUNT),
       personality,
       aiNarrative: narrative,
     });
