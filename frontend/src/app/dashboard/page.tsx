@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import SummaryCard from "@/components/SummaryCard";
 import SummaryHistory from "@/components/SummaryHistory";
 import { useSession } from "next-auth/react";
@@ -10,6 +9,7 @@ import { fetchUserSummaries } from "@/actions/fetchUserSummaries";
 import { deleteSummary } from "@/actions/deleteSummary";
 import { generateSummary } from "@/actions/generateSummary";
 import type { Summary } from "@/types/summary.types";
+import { TIME_SLOTS, type TimeSlot } from "@/config/timeSlots";
 import { SonicLoading } from "@/components/animations/SonicLoading";
 import MainLayout from "@/components/layouts/MainLayout";
 
@@ -19,6 +19,7 @@ export default function DashboardPage() {
   const [selectedSummary, setSelectedSummary] = useState<Summary | null>(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
+  const [generatingLabel, setGeneratingLabel] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -31,12 +32,14 @@ export default function DashboardPage() {
     }
   }, [status]);
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (slot: TimeSlot) => {
     setGenerating(true);
+    setGeneratingLabel(slot.loadingLabel);
     setError(null);
     try {
+      const after = slot.getAfter();
       const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } =
-        await processListeningHistory();
+        await processListeningHistory({ after });
       const data = await generateSummary({
         spotifyUserId,
         displayName,
@@ -51,6 +54,7 @@ export default function DashboardPage() {
       setError(err instanceof Error ? err.message : "Internal Server Error.");
     } finally {
       setGenerating(false);
+      setGeneratingLabel("");
     }
   };
 
@@ -87,16 +91,26 @@ export default function DashboardPage() {
 
   if (status !== "authenticated") return null;
 
+  const isLowTrackError =
+    error?.startsWith("Not enough listening") ?? false;
+
   return (
     <MainLayout>
       {error && (
-        <div className="z-10 absolute top-16 left-1/2 -translate-x-1/2 bg-red-900/40 border border-red-700 text-red-300 rounded-lg px-4 py-3 mb-6 text-sm">
+        <div
+          className={`z-10 absolute top-16 left-1/2 -translate-x-1/2 rounded-lg px-4 py-3 mb-6 text-sm ${
+            isLowTrackError
+              ? "bg-amber-900/30 border border-amber-700/50 text-amber-300"
+              : "bg-red-900/40 border border-red-700 text-red-300"
+          }`}
+        >
           {error}
         </div>
       )}
 
       <div className="relative z-10 flex flex-col items-center pt-24 pb-16 px-4">
-        <div className="w-full max-w-lg flex items-center gap-4 mb-6">
+        {/* Compact header */}
+        <div className="w-full max-w-xl flex items-center gap-4 mb-8">
           <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
             {session.user.image ? (
               <img
@@ -108,37 +122,82 @@ export default function DashboardPage() {
               <div className="w-full h-full bg-white/10" />
             )}
           </div>
-
           <p className="font-body text-white/80 text-base flex-1 truncate">
             Hey, {session.user.name}
           </p>
-
-          <button
-            onClick={handleGenerate}
-            disabled={generating}
-            className="
-              font-display text-xs tracking-wide
-              px-5 py-2 rounded-full
-              bg-linear-to-r from-coral to-amber
-              text-white
-              shadow-[0_0_16px_2px_rgba(255,107,138,0.35)]
-              hover:shadow-[0_0_24px_4px_rgba(255,107,138,0.55)]
-              hover:scale-[1.02] active:scale-100
-              transition-all duration-300
-              disabled:opacity-50 disabled:cursor-not-allowed
-              disabled:hover:scale-100
-            "
-          >
-            {generating ? "Generating..." : "New Reverie"}
-          </button>
         </div>
 
-        {generating && (
-          <div className="mb-6">
-            <SonicLoading text="Weaving your reverie..." />
+        {/* Time slot picker */}
+        {!generating && (
+          <div className="w-full max-w-xl mx-auto flex flex-col gap-6 mb-8">
+            <p className="font-body text-white/40 text-xs tracking-mega uppercase px-1">
+              Pick a moment
+            </p>
+
+            {/* Today */}
+            <div>
+              <p className="font-body text-white/30 text-xs tracking-wide px-1 mb-2">
+                Today
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {TIME_SLOTS.filter((s) => s.group === "today").map((slot) => (
+                  <button
+                    key={slot.id}
+                    onClick={() => handleGenerate(slot)}
+                    className="
+                      font-display text-sm tracking-wide
+                      px-4 py-2 rounded-full
+                      bg-white/[0.04] border border-white/10
+                      text-white/70
+                      hover:bg-white/[0.08] hover:border-coral/40 hover:text-white
+                      active:scale-95
+                      transition-all duration-200
+                      cursor-pointer
+                    "
+                  >
+                    {slot.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Yesterday */}
+            <div>
+              <p className="font-body text-white/30 text-xs tracking-wide px-1 mb-2">
+                Yesterday
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {TIME_SLOTS.filter((s) => s.group === "yesterday").map((slot) => (
+                  <button
+                    key={slot.id}
+                    onClick={() => handleGenerate(slot)}
+                    className="
+                      font-display text-sm tracking-wide
+                      px-4 py-2 rounded-full
+                      bg-white/[0.04] border border-white/10
+                      text-white/70
+                      hover:bg-white/[0.08] hover:border-coral/40 hover:text-white
+                      active:scale-95
+                      transition-all duration-200
+                      cursor-pointer
+                    "
+                  >
+                    {slot.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
+        {/* Generating */}
+        {generating && (
+          <div className="mb-8">
+            <SonicLoading text={`Weaving your ${generatingLabel} reverie...`} />
+          </div>
+        )}
+
+        {/* History */}
         <SummaryHistory
           summaries={summaries}
           onSelect={setSelectedSummary}
@@ -147,14 +206,15 @@ export default function DashboardPage() {
         />
 
         {summaries.length === 0 && !generating && (
-          <div className="flex flex-col items-center gap-2 mt-12 text-center">
+          <div className="flex flex-col items-center gap-2 mt-8 text-center">
             <p className="font-body text-white/40 text-sm tracking-wide">
-              No reveries yet. Tap the button above to create your first one.
+              No reveries yet. Pick a time slot above to create your first one.
             </p>
           </div>
         )}
       </div>
 
+      {/* Modal */}
       {selectedSummary && (
         <div
           className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-12 pb-8 bg-black/60 backdrop-blur-sm overflow-y-auto"
