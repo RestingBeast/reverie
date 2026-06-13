@@ -47,6 +47,7 @@ export default function DashboardPage() {
         tracks,
         artists,
         genres,
+        timeSlotLabel: slot.loadingLabel,
       });
       setSummaries((prev) => [data, ...prev]);
       setSelectedSummary(data);

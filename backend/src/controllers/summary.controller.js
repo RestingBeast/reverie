@@ -55,7 +55,7 @@ export const GetSummary = async (req, res) => {
   }
 };
 
-function buildPrompt({ tracks, artists, genres, displayName }) {
+function buildPrompt({ tracks, artists, genres, displayName, timeSlotLabel }) {
   const trackLines = tracks
     .sort((a, b) => b.playCount - a.playCount)
     .map(
@@ -77,9 +77,14 @@ function buildPrompt({ tracks, artists, genres, displayName }) {
     .map((g, i) => ` ${i + 1}. ${g.genre} - played ${g.playCount}x`)
     .join("\n");
 
+  const sessionContext = timeSlotLabel
+    ? `This covers ${displayName}'s listening from ${timeSlotLabel}.`
+    : `This covers ${displayName}'s recently played tracks.`;
+
   return `
     You are Reverie, a witty and insightful music personality analyser and story crafter.
     Based on the listening data below, write two things:
+    ${sessionContext}
     1. PERSONALITY: A short, punchy label for this listener's music personality (max 6 words).
       Examples: "The Midnight Overthinker", "Caffeinated Indie Daydreamer"
       - Try to draw inspiration from the top genres in the data
@@ -113,8 +118,8 @@ export async function generateSummary(req, res) {
   try {
     generateSummarySchema.parse(req.body);
     const spotifyUserId = req.spotifyUserId;
-    const { displayName, avatarUrl, tracks, artists, genres } = req.body;
-    const prompt = buildPrompt({ tracks, artists, genres, displayName });
+    const { displayName, avatarUrl, tracks, artists, genres, timeSlotLabel } = req.body;
+    const prompt = buildPrompt({ tracks, artists, genres, displayName, timeSlotLabel });
     const raw = await generateNarrative(prompt);
     const parsed = JSON.parse(cleanJsonString(raw));
     const personality = parsed.personality;
