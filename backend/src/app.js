@@ -40,7 +40,7 @@ app.use(
         callback(new Error(`Origin ${origin} not allowed by CORS`));
       }
     },
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
   }),
 );
 app.use(express.json());
