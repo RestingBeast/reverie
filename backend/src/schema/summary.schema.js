@@ -26,7 +26,7 @@ const artist = z.object({
   name: z.string().max(256, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
   genres: z.array(z.string().max(256, maxChar)).max(30),
-  avatarUrl: z.url(invalidUrl),
+  avatarUrl: z.url(invalidUrl).startsWith("https://", { error: "Must be an HTTPS URL" }),
   popularity: z.number().min(0).max(100),
   spotifyUrl: z.url(invalidUrl),
 });
@@ -38,7 +38,7 @@ const genre = z.object({
 
 export const generateSummarySchema = z.object({
   displayName: z.string().max(256, maxChar),
-  avatarUrl: z.url(invalidUrl),
+  avatarUrl: z.url(invalidUrl).startsWith("https://", { error: "Must be an HTTPS URL" }),
   tracks: z.array(track).max(50, {
     error: "Maximum 50 tracks",
   }),

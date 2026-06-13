@@ -9,7 +9,6 @@ import type { Summary } from "@/types/summary.types";
 import type { TrackMap } from "@/types/track.types";
 
 interface Props {
-  spotifyUserId: string;
   displayName: string | null | undefined;
   avatarUrl: string | null | undefined;
   tracks: TrackMap;
@@ -27,7 +26,6 @@ async function mintInternalToken(spotifyUserId: string) {
 }
 
 export const generateSummary = async ({
-  spotifyUserId,
   displayName,
   avatarUrl,
   tracks,
@@ -38,7 +36,7 @@ export const generateSummary = async ({
   try {
     const session = await getServerSession(authOptions);
     if (!session) throw new Error("Not Authenticated");
-    const token = await mintInternalToken(spotifyUserId);
+    const token = await mintInternalToken(session.user.userId);
     const body = JSON.stringify({
       displayName,
       avatarUrl,

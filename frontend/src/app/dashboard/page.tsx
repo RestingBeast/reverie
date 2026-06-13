@@ -37,10 +37,9 @@ export default function DashboardPage() {
     setError(null);
     try {
       const after = slot.getAfter();
-      const { spotifyUserId, displayName, avatarUrl, tracks, artists, genres } =
+      const { displayName, avatarUrl, tracks, artists, genres } =
         await processListeningHistory({ after });
       const data = await generateSummary({
-        spotifyUserId,
         displayName,
         avatarUrl,
         tracks,
