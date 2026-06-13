@@ -22,24 +22,24 @@ export default function NotFound() {
         className="relative z-10 space-y-8"
       >
         {/* Error Code */}
-        <h1 className="text-9xl font-black italic tracking-tighter text-white/5 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] select-none">
+        <h1 className="font-display text-9xl font-black italic tracking-wide text-white/5 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] select-none">
           404
         </h1>
 
         <div className="space-y-4">
-          <h2 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white uppercase ">
-            Signal <span className="text-coral">Lost.</span>
+          <h2 className="text-3xl md:text-5xl font-black italic tracking-wide text-white ">
+            Reverie <span className="text-coral">Interrupted.</span>
           </h2>
           <p className="max-w-md mx-auto text-slate-400 font-body tracking-widest text-xs sm:text-sm leading-relaxed uppercase">
-            The frequency you are looking for has faded into the static. This
-            narrative does not exist.
+            The dream you're looking for has drifted out of reach. This
+            reverie does not exist.
           </p>
         </div>
 
         {/* Action Button */}
         <div className="pt-8">
           <ActionButton
-            buttonText="Recalibrate to Origin"
+            buttonText="Return to Reverie"
             onClick={() => router.push("/")}
             className="bg-linear-to-r from-coral to-amber text-white shadow-[0_0_20px_rgba(255,107,138,0.4)] px-12"
           />

@@ -8,7 +8,7 @@ export async function fetchSharedSummary(shareId: string) {
       `${process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:5000"}/api/summaries/${shareId}`,
       { cache: "force-cache" },
     );
-    if (!res.ok) throw new Error("Summary Not Found");
+    if (!res.ok) throw new Error("Reverie Not Found");
     const summary: Summary = await res.json();
     return summary;
   } catch (err) {

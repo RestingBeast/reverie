@@ -14,7 +14,7 @@ const ActionButton = ({
   <button
     onClick={onClick}
     className={`
-      font-display tracking-widest text-clip uppercase text-xs lg:text-sm
+      font-display tracking-wide text-clip text-xs lg:text-sm
       py-3 rounded-full
       transition-all duration-300
       hover:scale-[1.02] active:scale-100

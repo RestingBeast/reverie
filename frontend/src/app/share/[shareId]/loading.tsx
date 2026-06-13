@@ -7,7 +7,7 @@ export default function Loading() {
   return (
     <MainLayout isPublic>
       <div className="flex flex-col items-center justify-center py-24 gap-3 text-center min-h-[60vh]">
-        <SonicLoading text="Extracting sonic blueprints..." />
+        <SonicLoading text="Weaving your reverie..." />
       </div>
     </MainLayout>
   );

@@ -58,7 +58,7 @@ export default function ResultPage() {
 
       {status === "loading" && (
         <div className="flex flex-col items-center justify-center py-24 gap-3 text-center min-h-[60vh]">
-          <SonicLoading text="Booting up..." />
+          <SonicLoading text="Tuning in..." />
         </div>
       )}
 
@@ -90,19 +90,19 @@ export default function ResultPage() {
           </div>
           <h1
             className="
-              font-display text-[#f5ece4] text-2xl tracking-widest
+              font-display text-[#f5ece4] text-2xl tracking-wide
               drop-shadow-[0_0_30px_rgba(255,200,150,0.3)]
             "
           >
             Hey, {session?.user.name}
           </h1>
           <p className="font-body text-white/50 text-lg tracking-mega mb-2 text-center">
-            While we scan your sonic echoes, your unique narrative is beginning
-            to take shape.
+            Gathering the echoes of your listening life — your personal reverie
+            is almost here.
           </p>
           <ActionButton
             onClick={handleGenerate}
-            buttonText={"Decode my Sonic Self"}
+            buttonText={"Discover my Reverie"}
             className={`
               w-full
               bg-linear-to-r from-coral to-amber
@@ -118,7 +118,7 @@ export default function ResultPage() {
       {/* Loading state */}
       {loading && (
         <div className="flex flex-col items-center justify-center py-24 gap-3 text-center">
-          <SonicLoading text="Extracting sonic blueprints..." />
+          <SonicLoading text="Weaving your reverie..." />
         </div>
       )}
 

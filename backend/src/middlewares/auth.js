@@ -10,7 +10,7 @@ export async function requireAuth(req, res, next) {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
     const { payload } = await jwtVerify(token, secret, {
-      issuer: "Sonic-Self Client",
+      issuer: "Reverie Client",
     });
     req.spotifyUserId = payload.sub;
     next();

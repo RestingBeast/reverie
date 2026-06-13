@@ -16,8 +16,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sonic Self",
-  description: "Your listening history, decoded into a story only you could soundtrack",
+  title: "Reverie",
+  description:
+    "Your listening history, woven into a portrait only you could soundtrack",
 };
 
 export default function RootLayout({

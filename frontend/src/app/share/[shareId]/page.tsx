@@ -29,7 +29,7 @@ export default async function SharePage({
       <div className="relative z-10 flex-1 flex items-center justify-center px-4 py-24">
         <SummaryCard
           summary={summary}
-          buttonText="Find your own Narrative"
+          buttonText="Find your own Reverie"
           readonly
         />
       </div>
