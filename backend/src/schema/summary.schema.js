@@ -1,7 +1,7 @@
 import z from "zod";
 
 const maxChar = {
-  error: "Maximum 32 characters",
+  error: "Maximum 256 characters",
 };
 
 const invalidPlayCount = {
@@ -13,33 +13,31 @@ const invalidUrl = {
 };
 
 const track = z.object({
-  trackId: z.string().max(32, maxChar),
-  name: z.string().max(256, {
-    error: "Maximum 256 characters",
-  }),
-  artist: z.string().max(32, maxChar),
+  trackId: z.string().max(256, maxChar),
+  name: z.string().max(256, maxChar),
+  artist: z.string().max(256, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
   albumCover: z.url(invalidUrl),
   spotifyUrl: z.url(invalidUrl),
 });
 
 const artist = z.object({
-  artistId: z.string().max(32, maxChar),
-  name: z.string().max(32, maxChar),
+  artistId: z.string().max(256, maxChar),
+  name: z.string().max(256, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
-  genres: z.array(z.string().max(32, maxChar)).max(30),
+  genres: z.array(z.string().max(256, maxChar)).max(30),
   avatarUrl: z.url(invalidUrl),
   popularity: z.number().min(0).max(100),
   spotifyUrl: z.url(invalidUrl),
 });
 
 const genre = z.object({
-  genre: z.string().max(32, maxChar),
+  genre: z.string().max(256, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
 });
 
 export const generateSummarySchema = z.object({
-  displayName: z.string().max(256, { error: "Maximum 256 characters" }),
+  displayName: z.string().max(256, maxChar),
   avatarUrl: z.url(invalidUrl),
   tracks: z.array(track).max(50, {
     error: "Maximum 50 tracks",
