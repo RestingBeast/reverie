@@ -48,6 +48,18 @@ app.use(express.json());
 app.use(generalLimiter);
 app.use("/api/summaries", summaryRouter);
 
-app.listen(port, () => {
+app.get("/health", (_req, res) => res.json({ status: "ok" }));
+
+app.use((_req, res) => res.status(404).json({ error: "Not found" }));
+
+const server = app.listen(port, () => {
   console.log(`Backend running on port ${port}`);
 });
+
+function gracefulShutdown() {
+  console.log("Shutting down gracefully...");
+  server.close(() => process.exit(0));
+}
+
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGINT", gracefulShutdown);

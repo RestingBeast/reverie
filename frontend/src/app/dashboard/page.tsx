@@ -111,7 +111,7 @@ export default function DashboardPage() {
             <div className="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden">
               <img
                 src="/everknight-dance.webp"
-                alt=""
+                alt="Animated character dancing"
                 className="w-full h-full object-cover"
               />
             </div>

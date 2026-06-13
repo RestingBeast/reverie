@@ -25,6 +25,7 @@ export default function SummaryHistory({
   onShare,
 }: SummaryHistoryProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
   if (summaries.length === 0) return null;
 
@@ -69,17 +70,39 @@ export default function SummaryHistory({
           </button>
 
           {/* Delete */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              if (window.confirm("Delete this reverie?")) {
-                onDelete(s.shareId);
-              }
-            }}
-            className="shrink-0 px-2.5 md:px-3.5 py-1 md:py-1.5 rounded-lg text-xs md:text-sm font-body tracking-wide text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
-          >
-            Delete
-          </button>
+          {confirmDelete === s.shareId ? (
+            <div className="flex items-center gap-1">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(s.shareId);
+                  setConfirmDelete(null);
+                }}
+                className="shrink-0 px-2.5 md:px-3.5 py-1 md:py-1.5 rounded-lg text-xs md:text-sm font-body tracking-wide text-red-400 hover:text-red-300 hover:bg-red-400/20 transition-colors"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setConfirmDelete(null);
+                }}
+                className="shrink-0 px-2.5 md:px-3.5 py-1 md:py-1.5 rounded-lg text-xs md:text-sm font-body tracking-wide text-white/30 hover:text-white/50 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setConfirmDelete(s.shareId);
+              }}
+              className="shrink-0 px-2.5 md:px-3.5 py-1 md:py-1.5 rounded-lg text-xs md:text-sm font-body tracking-wide text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+            >
+              Delete
+            </button>
+          )}
         </div>
       ))}
     </div>

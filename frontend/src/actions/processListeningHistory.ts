@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchRecentTracks } from "./fetchRecentTracks";
 import { fetchArtistGenres } from "./fetchArtistGenres";
 
+const MIN_TRACKS = 3;
+
 export async function processListeningHistory(opts?: { after?: number }) {
   const session = await getServerSession(authOptions);
   if (!session?.access_token) throw new Error("Not authenticated");
@@ -15,7 +17,6 @@ export async function processListeningHistory(opts?: { after?: number }) {
       ...artistMap.keys(),
     ]);
 
-    const MIN_TRACKS = 3;
     if (trackMap.size < MIN_TRACKS) {
       throw new Error(
         "Not enough listening in this window to weave a reverie. Try a broader time slot.",
