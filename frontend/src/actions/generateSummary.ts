@@ -22,7 +22,7 @@ async function mintInternalToken(spotifyUserId: string) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   return new SignJWT({ sub: spotifyUserId, iss: "Reverie Client" })
     .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("30s")
+    .setExpirationTime("60s")
     .sign(secret);
 }
 
