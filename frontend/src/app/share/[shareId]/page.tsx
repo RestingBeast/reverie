@@ -10,12 +10,10 @@ export default async function SharePage({
   params: Promise<{ shareId: string }>;
 }) {
   const { shareId } = await params;
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
 
   let summary: Summary | null = null;
   try {
-    [summary] = await Promise.all([fetchSharedSummary(shareId), sleep(4500)]);
+    summary = await fetchSharedSummary(shareId);
   } catch (err) {
     notFound();
   }
