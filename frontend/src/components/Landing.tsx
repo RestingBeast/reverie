@@ -16,7 +16,7 @@ export default function Landing() {
     const img = new Image();
     img.onload = () => setBgLoaded(true);
     img.onerror = () => setBgLoaded(true);
-    img.src = "/bg.png";
+    img.src = "/bg.webp";
   }, []);
 
   const handleNeonLit = useCallback(() => setNeonLit(true), []);
@@ -38,7 +38,7 @@ export default function Landing() {
           {/* Background image */}
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/bg.png')" }}
+            style={{ backgroundImage: "url('/bg.webp')" }}
             aria-hidden="true"
           />
           <div

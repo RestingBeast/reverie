@@ -110,6 +110,56 @@ function buildPrompt({ tracks, artists, genres, displayName, timeSlotLabel }) {
     `;
 }
 
+function selectTopTracks(tracks, count) {
+  const pool = [...tracks].sort((a, b) => b.playCount - a.playCount);
+  const selected = [];
+  const usedArtists = new Set();
+
+  for (let i = 0; i < count && pool.length > 0; i++) {
+    let best = 0;
+    for (let j = 0; j < pool.length; j++) {
+      const aSelected = usedArtists.has(pool[j].artist);
+      const bSelected = usedArtists.has(pool[best].artist);
+
+      const preferJ =
+        pool[j].playCount > pool[best].playCount ||
+        (pool[j].playCount === pool[best].playCount && !aSelected && bSelected);
+
+      if (preferJ) best = j;
+    }
+    selected.push(pool[best]);
+    usedArtists.add(pool[best].artist);
+    pool.splice(best, 1);
+  }
+
+  return selected;
+}
+
+function selectRelatedArtists(topTracks, allArtists, count) {
+  const usedArtistNames = new Set(topTracks.map((t) => t.artist));
+  const selected = [];
+  const picked = new Set();
+
+  for (const name of usedArtistNames) {
+    const match = allArtists.find((a) => a.name === name);
+    if (match) {
+      selected.push(match);
+      picked.add(name);
+    }
+  }
+
+  selected.sort((a, b) => b.playCount - a.playCount);
+
+  if (selected.length < count) {
+    const remaining = allArtists
+      .filter((a) => !picked.has(a.name))
+      .sort((a, b) => b.playCount - a.playCount);
+    selected.push(...remaining.slice(0, count - selected.length));
+  }
+
+  return selected;
+}
+
 function cleanJsonString(rawResponse) {
   return rawResponse.replace(/```json|```/gi, "").trim();
 }
@@ -128,14 +178,13 @@ export async function generateSummary(req, res) {
     if (!personality || !narrative)
       throw new Error("Missing fields in AI response");
 
+    const selectedTopTracks = selectTopTracks(tracks, 4);
     const summary = await Summary.create({
       spotifyUserId,
       displayName,
       avatarUrl,
-      topTracks: tracks.sort((a, b) => b.playCount - a.playCount).splice(0, 4),
-      topArtists: artists
-        .sort((a, b) => b.playCount - a.playCount)
-        .splice(0, 3),
+      topTracks: selectedTopTracks,
+      topArtists: selectRelatedArtists(selectedTopTracks, artists, 3),
       topGenres: genres.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
       personality,
       aiNarrative: narrative,
