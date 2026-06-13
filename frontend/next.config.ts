@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   images: {
     remotePatterns: [
-      new URL("https://i.scdn.co/image/**"),
-      new URL("https://picsum.photos/**"),
+      { protocol: "https", hostname: "i.scdn.co", pathname: "/image/**" },
+      { protocol: "https", hostname: "picsum.photos", pathname: "/**" },
     ],
   },
 };

@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import LogInButton from "./LogInButton";
 import NeonLoading from "./animations/NeonLoading";
 import RevealText from "./animations/RevealText";
-import Footer from "./Footer";
-
 export default function Landing() {
   const [bgLoaded, setBgLoaded] = useState(false);
   const [neonLit, setNeonLit] = useState(false);
@@ -17,6 +15,10 @@ export default function Landing() {
     img.onload = () => setBgLoaded(true);
     img.onerror = () => setBgLoaded(true);
     img.src = "/bg.webp";
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
   }, []);
 
   const handleNeonLit = useCallback(() => setNeonLit(true), []);
@@ -89,7 +91,6 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          {/* <Footer /> */}
         </motion.section>
       )}
     </>

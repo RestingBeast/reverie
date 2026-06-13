@@ -21,7 +21,6 @@ export default function DashboardPage() {
   const [generating, setGenerating] = useState(false);
   const [generatingLabel, setGeneratingLabel] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -75,8 +74,6 @@ export default function DashboardPage() {
   const handleShare = async (shareId: string) => {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000";
     await navigator.clipboard.writeText(`${baseUrl}/share/${shareId}`);
-    setCopiedId(shareId);
-    setTimeout(() => setCopiedId(null), 2000);
   };
 
   if (status === "loading" || initialLoading) {
@@ -125,7 +122,7 @@ export default function DashboardPage() {
         {!generating && (
           <div className="w-full max-w-xl mx-auto flex flex-col gap-6 mb-8">
             <p className="font-body text-white/40 text-xs tracking-mega uppercase px-1">
-              Pick a moment
+              Pick a moment to genereate your reverie
             </p>
 
             {/* Today */}

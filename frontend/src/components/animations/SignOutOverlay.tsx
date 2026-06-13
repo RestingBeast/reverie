@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
 export default function SignOutOverlay({

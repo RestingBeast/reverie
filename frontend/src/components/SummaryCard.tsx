@@ -1,6 +1,6 @@
 "use client";
 
-import { Summary } from "@/types/summary.types";
+import type { Summary } from "@/types/summary.types";
 import StatCard from "./StatCard";
 import { useState } from "react";
 import ActionButton from "@/components/ActionButton";
@@ -21,7 +21,7 @@ export default function SummaryCard({
 }: SummaryCardProps) {
   const router = useRouter();
   const [copied, setCopied] = useState<boolean>(false);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000";
   const shareUrl = `${baseUrl}/share/${summary.shareId}`;
   const date = new Date(summary.generatedAt).toLocaleDateString("en-GB", {
     day: "numeric",
