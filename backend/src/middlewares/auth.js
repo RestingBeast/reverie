@@ -12,6 +12,9 @@ export async function requireAuth(req, res, next) {
     const { payload } = await jwtVerify(token, secret, {
       issuer: "Reverie Client",
     });
+    if (!payload.sub) {
+      return res.status(401).json({ error: "Invalid token: missing subject." });
+    }
     req.spotifyUserId = payload.sub;
     next();
   } catch (error) {

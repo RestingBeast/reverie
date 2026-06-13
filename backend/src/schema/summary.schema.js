@@ -14,7 +14,9 @@ const invalidUrl = {
 
 const track = z.object({
   trackId: z.string().max(32, maxChar),
-  name: z.string().max(256, maxChar),
+  name: z.string().max(256, {
+    error: "Maximum 256 characters",
+  }),
   artist: z.string().max(32, maxChar),
   playCount: z.number().gt(0, invalidPlayCount),
   albumCover: z.url(invalidUrl),
@@ -37,7 +39,7 @@ const genre = z.object({
 });
 
 export const generateSummarySchema = z.object({
-  displayName: z.string().max(32, maxChar),
+  displayName: z.string().max(256, { error: "Maximum 256 characters" }),
   avatarUrl: z.url(invalidUrl),
   tracks: z.array(track).max(50, {
     error: "Maximum 50 tracks",

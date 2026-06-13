@@ -185,7 +185,7 @@ export async function generateSummary(req, res) {
       avatarUrl,
       topTracks: selectedTopTracks,
       topArtists: selectRelatedArtists(selectedTopTracks, artists, 3),
-      topGenres: genres.sort((a, b) => b.playCount - a.playCount).splice(0, 3),
+      topGenres: [...genres].sort((a, b) => b.playCount - a.playCount).slice(0, 3),
       personality,
       aiNarrative: narrative,
     });

@@ -21,13 +21,13 @@ connectDB();
 app.set("trust proxy", 1);
 app.use(helmet());
 
-const FRONTEND_URL = process.env.FRONTEND_URL;
-if (!FRONTEND_URL && process.env.NODE_ENV === "production") {
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://127.0.0.1:3000";
+if (!process.env.FRONTEND_URL && process.env.NODE_ENV === "production") {
   console.error("FATAL: FRONTEND_URL must be set in production.");
   process.exit(1);
 }
 
-const ALLOWED_ORIGINS = [process.env.FRONTEND_URL].filter(Boolean);
+const ALLOWED_ORIGINS = [FRONTEND_URL];
 
 app.use(
   cors({
