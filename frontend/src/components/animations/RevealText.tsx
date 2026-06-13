@@ -28,6 +28,7 @@ export default function RevealText({
   return (
     <motion.span
       className={className}
+      style={{ isolation: "isolate", transform: "translateZ(0)" }}
       initial="hidden"
       animate="visible"
       variants={{
