@@ -122,7 +122,7 @@ export default function DashboardPage() {
         {!generating && (
           <div className="w-full max-w-xl mx-auto flex flex-col gap-6 mb-8">
             <p className="font-body text-white/40 text-xs tracking-mega uppercase px-1">
-              Pick a moment to genereate your reverie
+              Pick a moment to generate your reverie
             </p>
 
             {/* Today */}
