@@ -43,18 +43,6 @@ export default function Landing() {
           <LogInButton />
         </div>
 
-        {/* Right: Chibi Teio dancing */}
-        <div className="shrink-0 animate-float">
-          <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full bg-[#140d24]/40 border border-coral/20 shadow-[0_0_40px_-8px_rgba(255,107,138,0.3)] overflow-hidden">
-            <img
-              src="/everknight-dance.webp"
-              alt="Everknight dancing"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-amber/10" />
-          </div>
-          <div className="absolute -inset-3 rounded-full border border-amber/5 blur-sm -z-10" />
-        </div>
       </div>
     </section>
   );

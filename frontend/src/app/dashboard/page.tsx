@@ -73,8 +73,7 @@ export default function DashboardPage() {
   };
 
   const handleShare = async (shareId: string) => {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000";
     await navigator.clipboard.writeText(`${baseUrl}/share/${shareId}`);
     setCopiedId(shareId);
     setTimeout(() => setCopiedId(null), 2000);
@@ -92,8 +91,7 @@ export default function DashboardPage() {
 
   if (status !== "authenticated") return null;
 
-  const isLowTrackError =
-    error?.startsWith("Not enough listening") ?? false;
+  const isLowTrackError = error?.startsWith("Not enough listening") ?? false;
 
   return (
     <MainLayout>
@@ -111,21 +109,16 @@ export default function DashboardPage() {
 
       <div className="relative z-10 flex flex-col items-center pt-24 pb-16 px-4">
         {/* Compact header */}
-        <div className="w-full max-w-xl flex items-center gap-4 mb-8">
-          <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
-            {session.user.image ? (
+        <div className="w-full max-w-xl flex flex-col items-center gap-4 mb-8">
+          <div className="shrink-0 animate-float">
+            <div className="w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden">
               <img
-                src={session.user.image}
+                src="/everknight-dance.webp"
                 alt=""
                 className="w-full h-full object-cover"
               />
-            ) : (
-              <div className="w-full h-full bg-white/10" />
-            )}
+            </div>
           </div>
-          <p className="font-body text-white/80 text-base flex-1 truncate">
-            Hey, {session.user.name}
-          </p>
         </div>
 
         {/* Time slot picker */}
@@ -168,11 +161,12 @@ export default function DashboardPage() {
                 Yesterday
               </p>
               <div className="flex flex-wrap gap-2">
-                {TIME_SLOTS.filter((s) => s.group === "yesterday").map((slot) => (
-                  <button
-                    key={slot.id}
-                    onClick={() => handleGenerate(slot)}
-                    className="
+                {TIME_SLOTS.filter((s) => s.group === "yesterday").map(
+                  (slot) => (
+                    <button
+                      key={slot.id}
+                      onClick={() => handleGenerate(slot)}
+                      className="
                       font-display text-sm tracking-wide
                       px-4 py-2 rounded-full
                       bg-white/[0.04] border border-white/10
@@ -182,10 +176,11 @@ export default function DashboardPage() {
                       transition-all duration-200
                       cursor-pointer
                     "
-                  >
-                    {slot.label}
-                  </button>
-                ))}
+                    >
+                      {slot.label}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
           </div>
