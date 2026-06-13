@@ -23,7 +23,6 @@ export default function SummaryCard({
   const [copied, setCopied] = useState<boolean>(false);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const shareUrl = `${baseUrl}/share/${summary.shareId}`;
-  const sharer = `Identified: ${summary.displayName}`;
   const date = new Date(summary.generatedAt).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
@@ -58,13 +57,13 @@ export default function SummaryCard({
       {readonly && (
         <div className="flex flex-col items-center gap-1 mb-6 text-center">
           <p className="font-body text-white/40 text-xs tracking-mega uppercase">
-            [Signal Captured]
+            [Reverie Captured]
           </p>
-          <h2 className="font-display text-white/80 text-2xl sm:text-3xl tracking-widest uppercase">
-            {summary.displayName}'s Sonic Portrait
+          <h2 className="font-display text-white/80 text-2xl sm:text-3xl tracking-wide">
+            {summary.displayName}'s Reverie
           </h2>
           <p className="font-body text-white/40 text-base mt-1">
-            This is their story. What would yours sound like?
+            A glimpse into their world. What does yours hold?
           </p>
         </div>
       )}
@@ -138,7 +137,7 @@ export default function SummaryCard({
       <div className="grid md:grid-cols-2 gap-3 pt-1">
         {/* Primary: Share */}
         <ActionButton
-          buttonText={copied ? "Signal Captured" : "Broadcast my Narrative"}
+          buttonText={copied ? "Link Copied" : "Share my Reverie"}
           onClick={handleShare}
           className={`
           text-white transition-all duration-500
@@ -154,7 +153,7 @@ export default function SummaryCard({
         />
         {/* Secondary: Regenerate */}
         <ActionButton
-          buttonText={buttonText ?? "Recalibrate Narrative"}
+          buttonText={buttonText ?? "Regenerate Reverie"}
           onClick={readonly ? handleRegenerate : onRegenerate}
           className="
             bg-linear-to-r from-amber via-coral to-lavender

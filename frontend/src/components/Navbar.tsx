@@ -11,7 +11,7 @@ export default function Navbar({ isPublic }: { isPublic?: boolean }) {
           href="/"
           className="font-display text-white text-base md:text-lg tracking-ultra uppercase select-none"
         >
-          Sonic Self
+          Reverie
         </a>
 
         <div className="flex items-center gap-6 md:gap-8">

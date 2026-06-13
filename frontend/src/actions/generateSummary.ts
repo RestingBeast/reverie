@@ -19,7 +19,7 @@ interface Props {
 
 async function mintInternalToken(spotifyUserId: string) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  return new SignJWT({ sub: spotifyUserId, iss: "Sonic-Self Client" })
+  return new SignJWT({ sub: spotifyUserId, iss: "Reverie Client" })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("30s")
     .sign(secret);

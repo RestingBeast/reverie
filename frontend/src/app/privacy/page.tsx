@@ -7,7 +7,7 @@ const SECTIONS = [
   },
   {
     title: "How We Use It",
-    body: "Your listening data is used solely to generate your personalised sonic narrative. We store the generated summary — including your name, profile image URL, UserID, top tracks, artists, and genres — so it can be shared via a unique link. Nothing is sold or shared with third parties.",
+    body: "Your listening data is used solely to generate your personalised reverie. We store the generated reverie — including your name, profile image URL, UserID, top tracks, artists, and genres — so it can be shared via a unique link. Nothing is sold or shared with third parties.",
   },
   {
     title: "Data Retention",
@@ -15,7 +15,7 @@ const SECTIONS = [
   },
   {
     title: "Third-Party Services",
-    body: "We use the Spotify Web API to fetch your listening history. Your use of Sonic Self is also subject to Spotify's own Privacy Policy. We use Groq to generate narrative text — your name and listening data (track names, artists, genres) is sent to the model.",
+    body: "We use the Spotify Web API to fetch your listening history. Your use of Reverie is also subject to Spotify's own Privacy Policy. We use Groq to generate reverie text — your name and listening data (track names, artists, genres) is sent to the model.",
   },
   {
     title: "Cookies & Sessions",
@@ -23,7 +23,7 @@ const SECTIONS = [
   },
   {
     title: "Contact",
-    body: "Questions? Reach us at privacy@sonicself.ai and we'll get back to you as soon as possible.",
+    body: "Questions? Reach us at privacy@reverie.ai and we'll get back to you as soon as possible.",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
         <div className="w-full max-w-2xl flex flex-col gap-10">
           {/* Header */}
           <div className="flex flex-col gap-2">
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-widest uppercase">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-wide">
               Privacy{" "}
               <span
                 className="bg-linear-to-r from-coral via-amber to-lavender
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
               Last updated: May 2026
             </p>
             <p className="font-body text-white/60 text-sm sm:text-base leading-relaxed mt-2">
-              Sonic Self is built to understand your music taste — not to
+              Reverie is built to understand your music taste — not to
               harvest your data. Here is exactly what we collect and why.
             </p>
           </div>
@@ -62,12 +62,12 @@ export default function PrivacyPage() {
                 <div className="flex items-center gap-3">
                   {/* Rank-style index */}
                   <span
-                    className="font-display text-xs tracking-widest text-coral
+                    className="font-display text-xs tracking-wide text-coral
                     drop-shadow-[0_0_6px_rgba(255,107,138,0.8)]"
                   >
                     0{i + 1}
                   </span>
-                  <h2 className="font-display text-white text-lg sm:text-xl tracking-widest uppercase">
+                  <h2 className="font-display text-white text-lg sm:text-xl tracking-wide">
                     {section.title}
                   </h2>
                 </div>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
           {/* Footer note */}
           <div className="h-px w-full bg-linear-to-r from-coral/30 via-amber/20 to-transparent" />
           <p className="font-body text-white/25 text-xs tracking-wide text-center">
-            Sonic Self · 2026
+            Reverie · 2026
           </p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# Sonic-Self — Agent Guide
+# Reverie — Agent Guide
 
 ## Structure
 - `frontend/` — Next.js 16 (App Router), TypeScript, Tailwind CSS v4
@@ -36,7 +36,7 @@
 - **Proxy** (`src/proxy.ts`, replaces deprecated `middleware.ts`): redirects `/` → `/dashboard` if authenticated, `/dashboard` → `/` if not
 
 ### Backend
-- **Auth**: JWT (HS256, 30s expiry) in `Authorization: Bearer`; `jose` verifies with issuer `"Sonic-Self Client"`; extracts `spotifyUserId` from `sub`
+- **Auth**: JWT (HS256, 30s expiry) in `Authorization: Bearer`; `jose` verifies with issuer `"Reverie Client"`; extracts `spotifyUserId` from `sub`
 - **No user collection** — summaries embedded with `spotifyUserId` string only
 - **Routes**: `POST /api/summaries/generate` (authenticated + rate-limited), `GET /api/summaries/:shareId` (public)
 - **AI adapter**: resolved from `AI_PROVIDER` env var; currently only `groq` adapter exists (Llama 3.3 70B via `groq-sdk`)

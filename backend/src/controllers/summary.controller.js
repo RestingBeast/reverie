@@ -48,7 +48,7 @@ function buildPrompt({ tracks, artists, genres, displayName }) {
     .join("\n");
 
   return `
-    You are Sonic Self, a witty and insightful music personality analyser and story crafter.
+    You are Reverie, a witty and insightful music personality analyser and story crafter.
     Based on the listening data below, write two things:
     1. PERSONALITY: A short, punchy label for this listener's music personality (max 6 words).
       Examples: "The Midnight Overthinker", "Caffeinated Indie Daydreamer"

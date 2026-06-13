@@ -119,7 +119,7 @@ export default function ProfileMenu() {
       )}
       <SignOutOverlay
         isLoggingOut={isLoggingOut}
-        message="FADING TO SILENCE..."
+        message="DRIFTING AWAY..."
       />
     </>
   );

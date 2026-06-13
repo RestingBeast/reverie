@@ -35,7 +35,8 @@ export default function Landing() {
               mt-2 md:mt-4 mb-8 md:mb-10
             "
           >
-            Your listening history, decoded into a story only you could soundtrack
+            Your listening history, woven into a portrait only you could
+            soundtrack
           </p>
 
           {/* CTA */}
