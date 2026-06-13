@@ -60,7 +60,7 @@ export default function Landing() {
                     />
                     <RevealText
                       text="Infinite Layers"
-                      className="block text-transparent bg-clip-text bg-linear-to-r from-coral to-amber"
+                      className="block text-transparent bg-clip-text bg-linear-to-r from-coral to-amber max-md:text-coral max-md:bg-none"
                       delay={0.7}
                     />
                   </h1>
