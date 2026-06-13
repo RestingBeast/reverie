@@ -1,6 +1,6 @@
 "use server";
 
-import { Summary } from "@/types/summary.types";
+import type { Summary } from "@/types/summary.types";
 
 export async function fetchSharedSummary(shareId: string) {
   try {
