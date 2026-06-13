@@ -39,8 +39,8 @@ export default function RevealText({
       }}
     >
       {text.split("").map((char, i) => (
-        <motion.span key={i} variants={letterVariants} className="inline-block">
-          {char === " " ? "\u00A0" : char}
+        <motion.span key={i} variants={letterVariants}>
+          {char}
         </motion.span>
       ))}
     </motion.span>
