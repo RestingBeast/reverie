@@ -13,5 +13,7 @@ export async function generateNarrative(prompt) {
     model: "llama-3.3-70b-versatile",
     max_completion_tokens: 500,
   });
-  return res.choices[0].message.content;
+  const content = res.choices?.[0]?.message?.content;
+  if (!content) throw new Error("AI returned empty response");
+  return content;
 }
