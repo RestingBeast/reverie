@@ -141,9 +141,9 @@ export default function DashboardPage() {
                     className="
                       font-display text-sm tracking-wide
                       px-4 py-2 rounded-full
-                      bg-white/[0.04] border border-white/10
+                      bg-white/4 border border-white/10
                       text-white/70
-                      hover:bg-white/[0.08] hover:border-coral/40 hover:text-white
+                      hover:bg-white/8 hover:border-coral/40 hover:text-white
                       active:scale-95
                       transition-all duration-200
                       cursor-pointer
@@ -169,9 +169,9 @@ export default function DashboardPage() {
                       className="
                       font-display text-sm tracking-wide
                       px-4 py-2 rounded-full
-                      bg-white/[0.04] border border-white/10
+                      bg-white/4 border border-white/10
                       text-white/70
-                      hover:bg-white/[0.08] hover:border-coral/40 hover:text-white
+                      hover:bg-white/8 hover:border-coral/40 hover:text-white
                       active:scale-95
                       transition-all duration-200
                       cursor-pointer
