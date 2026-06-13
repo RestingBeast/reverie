@@ -3,7 +3,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 const SECTIONS = [
   {
     title: "What We Collect",
-    body: "When you log in with Spotify, we receive your display name, profile image, and your 50 most recently played tracks. We do not store your Spotify credentials or access token — these stay inside your session and expire after 1 hour.",
+    body: "When you log in with Spotify, we receive your display name and profile image. You choose a time period (morning, afternoon, evening, or full day) and we fetch your recently played tracks for that window. We do not store your Spotify credentials or access token — these stay inside your session and expire after 1 hour.",
   },
   {
     title: "How We Use It",
@@ -11,7 +11,7 @@ const SECTIONS = [
   },
   {
     title: "Data Retention",
-    body: "Generated summaries are stored in our database tied to a unique share ID. We do not currently offer self-serve deletion, but you can contact us and we will remove your data promptly.",
+    body: "Generated summaries are stored in our database tied to a unique share ID. You can delete any reverie from your dashboard at any time. You can also contact us at privacy@reverie.ai and we will remove your data promptly.",
   },
   {
     title: "Third-Party Services",
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
               </span>
             </h1>
             <p className="font-body text-white/40 text-xs sm:text-sm tracking-wide">
-              Last updated: May 2026
+              Last updated: June 2026
             </p>
             <p className="font-body text-white/60 text-sm sm:text-base leading-relaxed mt-2">
               Reverie is built to understand your music taste — not to
