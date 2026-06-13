@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  GetSummary,
+  getSummary,
   generateSummary,
   getSummaries,
   deleteSummary,
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", requireAuth, getSummaries);
 router.post("/generate", requireAuth, generateLimiter, generateSummary);
-router.get("/:shareId", GetSummary);
+router.get("/:shareId", getSummary);
 router.delete("/:shareId", requireAuth, deleteSummary);
 
 export default router;
