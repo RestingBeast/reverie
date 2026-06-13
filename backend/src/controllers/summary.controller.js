@@ -127,7 +127,7 @@ function selectTopTracks(tracks, count) {
 
       const preferJ =
         pool[j].playCount > pool[best].playCount ||
-        (pool[j].playCount === pool[best].playCount && !aSelected && bSelected);
+        (!aSelected && bSelected && pool[j].playCount >= pool[best].playCount * 0.9);
 
       if (preferJ) best = j;
     }
