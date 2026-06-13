@@ -48,6 +48,7 @@ export const generateSummarySchema = z.object({
   genres: z.array(genre).max(50, {
     error: "Maximum 50 genres",
   }),
+  timeSlotLabel: z.string().optional(),
 });
 
 export const getSummarySchema = z.object({

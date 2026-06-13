@@ -15,6 +15,7 @@ interface Props {
   tracks: TrackMap;
   artists: ArtistMap;
   genres: GenreCountMap;
+  timeSlotLabel?: string;
 }
 
 async function mintInternalToken(spotifyUserId: string) {
@@ -32,6 +33,7 @@ export const generateSummary = async ({
   tracks,
   artists,
   genres,
+  timeSlotLabel,
 }: Props): Promise<Summary> => {
   try {
     const session = await getServerSession(authOptions);
@@ -43,6 +45,7 @@ export const generateSummary = async ({
       tracks: [...tracks.values()],
       artists: [...artists.values()],
       genres: [...genres.values()],
+      timeSlotLabel,
     });
 
     const res = await fetch(
