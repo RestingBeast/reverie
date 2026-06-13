@@ -6,7 +6,7 @@ import type { PlayHistory } from "@spotify/web-api-ts-sdk";
 import type { ArtistMap } from "@/types/artist.types";
 import type { TrackMap } from "@/types/track.types";
 
-export async function fetchRecentTracks() {
+export async function fetchRecentTracks(opts?: { after?: number }) {
   const trackMap: TrackMap = new Map();
   const artistMap: ArtistMap = new Map();
 
@@ -14,8 +14,11 @@ export async function fetchRecentTracks() {
   if (!session?.access_token) throw new Error("Not authenticated.");
 
   try {
+    const params = new URLSearchParams({ limit: "50" });
+    if (opts?.after) params.set("after", String(opts.after));
+
     const res = await fetch(
-      "https://api.spotify.com/v1/me/player/recently-played?limit=50",
+      `https://api.spotify.com/v1/me/player/recently-played?${params}`,
       {
         headers: { Authorization: `Bearer ${session?.access_token}` },
       },
