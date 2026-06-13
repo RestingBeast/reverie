@@ -1,14 +1,14 @@
-# Sonic-Self
+# Reverie
 
 ## Overview
 
 ### Problem
 
-Music streaming generates enormous amounts of personal listening data, but Spotify's native "Wrapped" feature only surfaces it once a year. Casual listeners have no easy way to understand their music personality on demand - what genres define them, which artists dominate their rotation, and what that says about who they are.
+Music streaming generates enormous amounts of personal listening data, but Spotify's native "Wrapped" feature only surfaces it once a year. Casual listeners have no easy way to understand their music personality on demand — what genres define them, which artists dominate their rotation, and what that says about who they are.
 
 ### Outcome
 
-Sonic-Self lets any Spotify user log in, instantly analyse their recent listening history, and receive an AI-generated personality summary with a shareable public link. The result is a personalised, on-demand music identity card that can be shared with friends at any time - not just in December.
+Reverie lets any Spotify user log in, instantly analyse their recent listening history, and receive an AI-generated personality summary with a shareable public link. The result is a personalised, on-demand music identity card that can be shared with friends at any time.
 
 - Users receive a personality label (e.g. "The Midnight Aesthete") and a narrative paragraph generated from their real listening data.
 - Summaries are publicly shareable via a unique URL with no account required for the viewer.
@@ -17,112 +17,64 @@ Sonic-Self lets any Spotify user log in, instantly analyse their recent listenin
 
 ## Demo
 
-**Flow: Login → Analyse → Share**
+1. **Log in with Spotify.** The landing page shows a branded "Log in with Spotify" button. Clicking it redirects to Spotify's OAuth consent screen, then back to the dashboard.
 
-1. User visits the app and clicks **Connect Spotify**.
-<img width="1896" height="897" alt="1 0" src="https://github.com/user-attachments/assets/0e7aab34-dd96-42ab-9319-efbba9fe730c" />
+2. **Dashboard loads.** The dashboard displays a time slot picker (Today / Yesterday, split into Full Day, Morning, Afternoon, Evening, Late Night) and a **SummaryHistory** list of any previously generated reveries. Each entry shows the personality label, date, and Share / Delete actions.
 
-2. Spotify OAuth redirects back and NextAuth.js establishes a session.
-<img width="1920" height="1073" alt="2" src="https://github.com/user-attachments/assets/ad30a877-837f-4dad-af19-b28eb1d3821b" />
+3. **Pick a time window and generate.** Select a time slot (e.g. "Morning") and click generate. A server action fetches your recently played tracks from Spotify, batches artist lookups for genres and images, then sends the processed data to the Express backend.
 
-3. A server action fetches the user's recent tracks and batches artist lookups to resolve genres.
-<img width="1920" height="913" alt="3" src="https://github.com/user-attachments/assets/61c35d87-ea2b-452f-a4c6-7dce35ef8b8e" />
+4. **AI creates your reverie.** The backend builds a prompt from your listening data and calls the AI adapter (Groq — Llama 3.3 70B), which returns a personality label (e.g. "The Midnight Aesthete") and a narrative paragraph. The summary is saved to MongoDB with a unique `shareId`.
 
-4. The processed payload is sent to the Express backend, which calls the AI adapter and returns a personality summary.
-5. The summary is saved to MongoDB with a unique `shareId`.
-<img width="1920" height="1445" alt="4 1" src="https://github.com/user-attachments/assets/1820ecf6-a9ea-4dce-bd8d-7f93dfe27c44" />
+5. **View the reverie.** A full-screen modal opens showing your **SummaryCard** — avatar, display name, personality tagline, date, narrative, top tracks, top artists, and top genres. Cards that scroll horizontally for tracks and artists.
 
-6. The user sees their personality card and can copy a public link at `/share/[shareId]`.
-<img width="1920" height="1610" alt="share-page" src="https://github.com/user-attachments/assets/878434be-dc26-4997-9ed3-3962753d62c5" />
+6. **Share or delete.** From SummaryHistory, click **Share** on any row to copy a public link (`/share/[shareId]`). Click **Delete** to remove a reverie (with a confirm/cancel step). Past reveries are always accessible from the history list.
 
-> Screenshots / GIFs to be added.
+7. **Public share page.** Anyone with the link can view the reverie at `/share/[shareId]` — no login required. A "Find your own Reverie" button directs them to the landing page.
+
+8. **Sign out.** Click your profile avatar in the top-right corner, then **Sign Out**. A full-screen "DRIFTING AWAY..." animation plays for 2.5 seconds before redirecting to the landing page.
 
 ---
 
 ## Technology Stack
 
-### Frontend
+### Frontend components
 
-| Technology             | Purpose                                           |
-| ---------------------- | ------------------------------------------------- |
-| Next.js (App Router)   | Framework, routing, server-side rendering         |
-| NextAuth.js            | Spotify OAuth session management                  |
-| Tailwind CSS           | Styling                                           |
-| Framer Motion          | Animation                                         |
-| Next.js Server Actions | Spotify API calls (token never exposed to client) |
+- **Next.js (App Router)** — framework, routing, server-side rendering
+- **NextAuth.js** — Spotify OAuth session management (JWT strategy, 60-minute expiry)
+- **Tailwind CSS** — styling
+- **Framer Motion** — animations
+- **Next.js Server Actions** — Spotify API calls (access token never leaves the server)
 
-### Backend
+### Backend components
 
-| Technology                   | Purpose                                   |
-| ---------------------------- | ----------------------------------------- |
-| Express.js                   | REST API server                           |
-| Mongoose                     | MongoDB ODM                               |
-| MongoDB Atlas                | Cloud database — stores summaries         |
-| nanoid                       | Unique `shareId` generation               |
-| Provider-agnostic AI adapter | Abstraction layer over Groq/Claude/Gemini |
-| Groq (Llama 3.3 70B)         | AI narrative and personality generation   |
-
----
-
-## Development Approach with AI
-
-### AI Tools & Services
-
-| Tool / Model         | Purpose                                                                    |
-| -------------------- | -------------------------------------------------------------------------- |
-| Groq — Llama 3.3 70B | Generates personality label and narrative from listening data              |
-| Claude (Anthropic)   | Development assistant - architecture decisions, code generation, debugging |
-| Gemini (Google)      | Development assistant - code generation, debugging                         |
-
-### AI Adapter Pattern
-
-The backend uses a provider-agnostic adapter so the underlying AI model can be swapped without changing application code. The active provider is set via the `AI_PROVIDER` environment variable.
-
-```
-services/ai/
-├── index.js          ← resolves provider from env
-└── adapters/
-    └── groqAdapter.js
-```
-
-### Key Review Points & Decisions
-
-| Review Point                     | Decision                                                                            |
-| -------------------------------- | ----------------------------------------------------------------------------------- |
-| Where to call the Spotify API    | Kept in Next.js Server Actions — access token never leaves the Next.js layer        |
-| Token refresh strategy           | No refresh — 60-minute session is sufficient for the use case                       |
-| User storage                     | No user collection in MongoDB — summaries identified by `spotifyUserId` string only |
-| Auth between Next.js and Express | Shared secret via `x-api-secret` header (only in Sever components or actions)       |
-| Share page auth                  | Public — no login required to view a shared summary                                 |
+- **Express.js** — REST API server
+- **Mongoose** — MongoDB ODM
+- **MongoDB Atlas** — cloud database (summaries only, no user collection)
+- **nanoid** — unique `shareId` generation
+- **Provider-agnostic AI adapter** — abstraction layer over Groq / Claude / Gemini
+- **Groq (Llama 3.3 70B)** — AI narrative and personality generation
 
 ---
 
 ## Installation
 
 **Prerequisites:** Node.js 18+, MongoDB Atlas account, Spotify Developer account, Groq API key.
+
 - [Spotify Client Guide](https://developer.spotify.com/documentation/web-api/concepts/apps)
 - [Groq Quickstart](https://console.groq.com/docs/quickstart)
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/RestingBeast/sonic-self.git sonic-self
-cd sonic-self
+git clone https://github.com/RestingBeast/Reverie.git Reverie
+cd Reverie
 
 # 2. Install frontend dependencies
 cd frontend
-# Using pnpm
 pnpm install
-
-# OR using npm
-npm install
 
 # 3. Install backend dependencies
 cd ../backend
-# Using pnpm
 pnpm install
-
-# OR using npm
-npm install
 ```
 
 **Environment variables — frontend (`.env.development.local`):**
@@ -136,7 +88,7 @@ SPOTIFY_SECRET=your_spotify_client_secret
 
 NEXT_PUBLIC_API_URL=http://127.0.0.1:5000
 NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3000
-INTERNAL_API_SECRET=your_shared_secret
+JWT_SECRET=your_shared_secret
 ```
 
 **Environment variables — backend (`.env.dev`):**
@@ -145,59 +97,43 @@ INTERNAL_API_SECRET=your_shared_secret
 PORT=5000
 FRONTEND_URL=http://127.0.0.1:3000
 MONGO_URI=your_mongodb_atlas_uri
-INTERNAL_API_SECRET=your_shared_secret
+JWT_SECRET=your_shared_secret
 
 AI_PROVIDER=groq
 GROQ_API_KEY=your_groq_api_key
 ```
 
-### Note: We cannot use localhost as Spotify API redirects to 127.0.0.1\_
+> **Note:** Use `127.0.0.1` everywhere — never `localhost` — because Spotify OAuth redirects break on localhost.
+
+---
 
 ## Usage
 
 ```bash
 # Start the backend
 cd backend
-# Using pnpm
-pnpm run dev
-
-# OR using npm
-npm run dev
+pnpm dev
 
 # Start the frontend (separate terminal)
 cd frontend
-# Using pnpm
-pnpm run dev
-
-# OR using npm
-npm run dev
+pnpm dev
 ```
 
 Visit `http://127.0.0.1:3000`, connect your Spotify account, and generate your summary.
 
 **Seed the database with sample summaries:**
-If you don't want to create Spotify Client, you can seed the database and see three examples of shared summaries
 
-```env
-FRONTEND_URL=http://127.0.0.1:3000
-MONGO_URI=your_mongodb_atlas_uri
-```
-
-You will need these two variables in your `.env.dev`
+If you'd like to preview shared summaries without connecting your own Spotify account, seed the database:
 
 ```bash
 cd backend
-# Using pnpm
-pnpm run seed
-
-# OR using npm
-npm run seed
+pnpm seed
 ```
 
 Public share pages are accessible at:
 
 ```
-http://localhost:3000/share/[shareId]
+http://127.0.0.1:3000/share/[shareId]
 ```
 
 ---
@@ -205,18 +141,18 @@ http://localhost:3000/share/[shareId]
 ## Project Structure
 
 ```
-Sonic-Self/
+Reverie/
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
 │   │   │   ├── page.tsx              # Landing page
 │   │   │   ├── not-found.tsx         # Fallback page for errors
-│   │   │   ├── privacy/              # Privacy & Policy Page
+│   │   │   ├── privacy/              # Privacy & policy page
 │   │   │   ├── dashboard/            # Post-login summary view
 │   │   │   └── share/[shareId]/      # Public share page
 │   │   ├── actions/                  # Server Actions (Spotify API calls)
-│   │   ├── components/               # Animations, Buttons, etc
-│   │   ├── proxy.ts                  # Redirection based on authetication
+│   │   ├── components/               # UI components, animations
+│   │   ├── proxy.ts                  # Auth-based route redirection
 │   │   └── lib/                      # NextAuth config, API client
 │   └── .env.development.local
 │
@@ -224,44 +160,14 @@ Sonic-Self/
     ├── src/
     │   ├── models/
     │   │   └── summary.model.js      # MongoDB schema
-    │   ├── routes/                   # Express routes
-    │   ├── controllers/              # Request handlers
+    │   ├── routes/                   # Express route definitions
+    │   ├── controllers/              # Request handlers & AI orchestration
     │   ├── middlewares/              # Auth (shared secret), rate limiter
     │   └── services/
     │       └── ai/
-    │           ├── index.js          # Provider resolver
-    │           └── adapters/         # groqAdapter.js, etc.
+    │           ├── index.js          # Provider resolver (env-based)
+    │           └── adapters/         # Provider-specific adapters
     ├── .env.dev
     └── scripts/
         └── seed.js                   # Sample data seeder
 ```
-
----
-
-## Reflection
-
-**What worked well:**
-
-- Keeping Spotify API calls exclusively in Server Actions. The access token never touches the client or the Express layer.
-- The provider-agnostic AI adapter proved really useful. People with any AI subscriptions can write their own adapter and change the env variable
-- Using `nanoid` for `shareId` and skipping a user collection kept the data model lean and the public share flow stateless.
-
-**What was challenging:**
-
-- The processing of an artist's genres and avatar need to be done after fetching two responses from the Spotify API
-- Mobile responsiveness was a real hassle since the site focused more on UI and UX
-- NextAuth.js session management with Spotify has edge cases around token expiry. The decision to not implement refresh and rely on a 60-minute session was a deliberate simplification
-
-**Changes made during development:**
-
-- Initially planned to store user data in a separate collection. Dropped in favour of embedding `spotifyUserId` directly on the summary — simpler logic.
-- Moved from a direct Groq SDK call in the route handler to the adapter pattern after realising a second AI provider would require duplicating logic.
-- Summary model had some additonal fields added and animations were added to mitigates the emptiness of the card
-- Added rate-limiting middleware to stop the spamming of AI related endpoint
-
-**What was failing:**
-
-- the Summary models had to modified too many times, needed to carefully inspect the Spotify API response first
-- The shared API secret was used to for the client and server handshake, not sure if it's a good way or not
-- Spent too much time on animations and frontend design, ignoring some functionaliy like input-sanitation, error-handling
-- There are major glaring security issues like json injections and propmt injections, never really sanitized on the backend side
