@@ -10,7 +10,7 @@
 
 ## Development Timeline
 
-The project evolved over **84 commits** across two distinct iterations:
+The project evolved over **85 commits** across two distinct iterations:
 
 ### Iteration 1 (May 11 – May 17) — Foundation
 
@@ -130,7 +130,9 @@ From the git history, the fix trajectory was:
 
 - **Speed of iteration** — AI could generate complete components (NeonLoading, RevealText, StatCard) in seconds, letting focus shift to polish and integration.
 - **Architecture guidance** — Claude helped design the provider-agnostic AI adapter pattern early on, which avoided a rewrite when adding the second iteration. The adapter layer (`services/ai/index.js` + `adapters/`) was designed in a single architecture conversation.
-- **Severity-based batching** — Processing fixes in Critical → High → Medium → Low order with build verification at each stage prevented regression cascades. The June 14 batch processed ~20 fixes across 4 severity levels in under 2 hours.
+- **Severity-based batching** — Processing fixes in Critical → High → Medium → Low order with build verification at each stage prevented regression cascades. The June 14 batch processed ~20 fixes across 4 severity levels.
+- - **Codebase scan** — Gave clear direction and a concrete list of tasks before implementation.
+- **AGENTS.md progress log** — Maintained context across the session and made it easy to resume work.
 
 ### What was challenging
 
