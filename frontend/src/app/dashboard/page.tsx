@@ -37,9 +37,13 @@ export default function DashboardPage() {
     setError(null);
     try {
       const after = slot.getAfter();
-      const { displayName, avatarUrl, tracks, artists, genres } =
-        await processListeningHistory({ after });
-      const data = await generateSummary({
+      const result = await processListeningHistory({ after });
+      if (!result.success) {
+        setError(result.error);
+        return;
+      }
+      const { displayName, avatarUrl, tracks, artists, genres } = result.data;
+      const genResult = await generateSummary({
         displayName,
         avatarUrl,
         tracks,
@@ -47,8 +51,12 @@ export default function DashboardPage() {
         genres,
         timeSlotLabel: slot.loadingLabel,
       });
-      setSummaries((prev) => [data, ...prev]);
-      setSelectedSummary(data);
+      if (!genResult.success) {
+        setError(genResult.error);
+        return;
+      }
+      setSummaries((prev) => [genResult.data, ...prev]);
+      setSelectedSummary(genResult.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Internal Server Error.");
     } finally {
