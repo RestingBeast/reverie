@@ -18,18 +18,23 @@ Reverie lets any Spotify user log in, instantly analyse their recent listening h
 ## Demo
 
 1. **Log in with Spotify.** The landing page shows a branded "Log in with Spotify" button. Clicking it redirects to Spotify's OAuth consent screen, then back to the dashboard.
+    <img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/a62288c9-b776-434f-a346-085c0bcdfee7" />
 
 2. **Dashboard loads.** The dashboard displays a time slot picker (Today / Yesterday, split into Full Day, Morning, Afternoon, Evening, Late Night) and a **SummaryHistory** list of any previously generated reveries. Each entry shows the personality label, date, and Share / Delete actions.
 
 3. **Pick a time window and generate.** Select a time slot (e.g. "Morning") and click generate. A server action fetches your recently played tracks from Spotify, batches artist lookups for genres and images, then sends the processed data to the Express backend.
+    <img width="1920" height="1326" alt="image" src="https://github.com/user-attachments/assets/94f98fee-e954-4112-8e43-3c10271796ac" />
 
 4. **AI creates your reverie.** The backend builds a prompt from your listening data and calls the AI adapter (Groq — Llama 3.3 70B), which returns a personality label (e.g. "The Midnight Aesthete") and a narrative paragraph. The summary is saved to MongoDB with a unique `shareId`.
 
 5. **View the reverie.** A full-screen modal opens showing your **SummaryCard** — avatar, display name, personality tagline, date, narrative, top tracks, top artists, and top genres. Cards that scroll horizontally for tracks and artists.
+    <img width="1920" height="962" alt="image" src="https://github.com/user-attachments/assets/e2929cea-b4bc-458a-9aa8-06623788d2c3" />
 
 6. **Share or delete.** From SummaryHistory, click **Share** on any row to copy a public link (`/share/[shareId]`). Click **Delete** to remove a reverie (with a confirm/cancel step). Past reveries are always accessible from the history list.
+    <img width="1920" height="1326" alt="image" src="https://github.com/user-attachments/assets/602caeb9-bfd2-4db7-8c8f-f6df348b57d3" />
 
 7. **Public share page.** Anyone with the link can view the reverie at `/share/[shareId]` — no login required. A "Find your own Reverie" button directs them to the landing page.
+    <img width="1920" height="1313" alt="image" src="https://github.com/user-attachments/assets/e4c82819-1add-45dc-a3fb-8eb111aea228" />
 
 8. **Sign out.** Click your profile avatar in the top-right corner, then **Sign Out**. A full-screen "DRIFTING AWAY..." animation plays for 2.5 seconds before redirecting to the landing page.
 
