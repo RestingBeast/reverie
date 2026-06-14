@@ -13,7 +13,7 @@ export const generalLimiter = rateLimit({
 // Prevents users from hammering AI API
 export const generateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // 5 generations per IP per hour
+  max: 50, // 50 generations per IP per hour
   standardHeaders: true,
   legacyHeaders: false,
   message: {
