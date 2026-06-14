@@ -19,7 +19,6 @@
 
 - `pnpm dev` — `nodemon --exec "node --env-file=.env.dev" src/app.js`
 - `pnpm seed` — seeds MongoDB with 3 sample summaries
-- No test suite; placeholder `pnpm test` prints "Error: no test specified"
 
 ### Docker
 
