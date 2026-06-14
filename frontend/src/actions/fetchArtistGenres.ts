@@ -5,12 +5,15 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import type { Artist } from "@spotify/web-api-ts-sdk";
 import type { GenreCountMap, GenreMap } from "@/types/genre.types";
 
-export async function fetchArtistGenres(artistsIds: string[]) {
+export async function fetchArtistGenres(
+  artists: { artistId: string; playCount: number }[],
+) {
   const session = await getServerSession(authOptions);
   if (!session?.access_token) throw new Error("Not authenticated");
 
   try {
-    const ids = artistsIds.join(",");
+    const playCountByArtist = new Map(artists.map((a) => [a.artistId, a.playCount]));
+    const ids = artists.map((a) => a.artistId).join(",");
     const res = await fetch(`https://api.spotify.com/v1/artists/?ids=${ids}`, {
       headers: { Authorization: `Bearer ${session.access_token}` },
     });
@@ -41,10 +44,11 @@ export async function fetchArtistGenres(artistsIds: string[]) {
 
     const genreCountMap: GenreCountMap = new Map();
     for (const artist of data.artists) {
+      const count = playCountByArtist.get(artist.id) || 0;
       for (const genre of artist.genres) {
         genreCountMap.set(genre, {
           genre: genre,
-          playCount: (genreCountMap.get(genre)?.playCount || 0) + 1,
+          playCount: (genreCountMap.get(genre)?.playCount || 0) + count,
         });
       }
     }

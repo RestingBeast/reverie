@@ -39,9 +39,12 @@ export async function processListeningHistory(
 
   try {
     const { artistMap, trackMap } = await fetchRecentTracks(opts);
-    const { genreMap, genreCountMap } = await fetchArtistGenres([
-      ...artistMap.keys(),
-    ]);
+    const { genreMap, genreCountMap } = await fetchArtistGenres(
+      [...artistMap.entries()].map(([id, a]) => ({
+        artistId: id,
+        playCount: a.playCount,
+      })),
+    );
 
     if (trackMap.size < MIN_TRACKS) {
       return {
