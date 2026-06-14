@@ -10,7 +10,7 @@
 
 ## Development Timeline
 
-The project evolved over **81 commits** across two distinct iterations:
+The project evolved over **84 commits** across two distinct iterations:
 
 ### Iteration 1 (May 11 – May 17) — Foundation
 
