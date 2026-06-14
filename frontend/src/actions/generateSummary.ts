@@ -17,6 +17,18 @@ interface Props {
   timeSlotLabel?: string;
 }
 
+interface GenSuccess {
+  success: true;
+  data: Summary;
+}
+
+interface GenError {
+  success: false;
+  error: string;
+}
+
+type GenResult = GenSuccess | GenError;
+
 async function mintInternalToken(spotifyUserId: string) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   return new SignJWT({ sub: spotifyUserId, iss: "Reverie Client" })
@@ -32,10 +44,12 @@ export const generateSummary = async ({
   artists,
   genres,
   timeSlotLabel,
-}: Props): Promise<Summary> => {
+}: Props): Promise<GenResult> => {
   try {
     const session = await getServerSession(authOptions);
-    if (!session) throw new Error("Not Authenticated");
+    if (!session) {
+      return { success: false, error: "Not Authenticated" };
+    }
     const token = await mintInternalToken(session.user.userId);
     const body = JSON.stringify({
       displayName,
@@ -60,13 +74,18 @@ export const generateSummary = async ({
 
     if (!res.ok) {
       const err = await res.json();
-      throw new Error(err.error || "Failed to generate summary.");
+      return {
+        success: false,
+        error: err.error || "Failed to generate summary.",
+      };
     }
     const data: Summary = await res.json();
 
-    return data;
+    return { success: true, data };
   } catch (err) {
-    if (err instanceof Error) throw err;
-    throw new Error("Internal Server Error");
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Internal Server Error",
+    };
   }
 };

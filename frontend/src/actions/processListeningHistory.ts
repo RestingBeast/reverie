@@ -4,12 +4,38 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchRecentTracks } from "./fetchRecentTracks";
 import { fetchArtistGenres } from "./fetchArtistGenres";
+import type { TrackMap } from "@/types/track.types";
+import type { ArtistMap } from "@/types/artist.types";
+import type { GenreCountMap } from "@/types/genre.types";
 
 const MIN_TRACKS = 3;
 
-export async function processListeningHistory(opts?: { after?: number }) {
+interface ProcessSuccess {
+  success: true;
+  data: {
+    spotifyUserId: string;
+    displayName: string | null | undefined;
+    avatarUrl: string | null | undefined;
+    tracks: TrackMap;
+    artists: ArtistMap;
+    genres: GenreCountMap;
+  };
+}
+
+interface ProcessError {
+  success: false;
+  error: string;
+}
+
+type ProcessResult = ProcessSuccess | ProcessError;
+
+export async function processListeningHistory(
+  opts?: { after?: number },
+): Promise<ProcessResult> {
   const session = await getServerSession(authOptions);
-  if (!session?.access_token) throw new Error("Not authenticated");
+  if (!session?.access_token) {
+    return { success: false, error: "Not authenticated" };
+  }
 
   try {
     const { artistMap, trackMap } = await fetchRecentTracks(opts);
@@ -18,9 +44,11 @@ export async function processListeningHistory(opts?: { after?: number }) {
     ]);
 
     if (trackMap.size < MIN_TRACKS) {
-      throw new Error(
-        "Not enough listening in this window to weave a reverie. Try a broader time slot.",
-      );
+      return {
+        success: false,
+        error:
+          "Not enough listening in this window to weave a reverie. Try a broader time slot.",
+      };
     }
 
     for (const item of artistMap) {
@@ -36,15 +64,20 @@ export async function processListeningHistory(opts?: { after?: number }) {
     }
 
     return {
-      spotifyUserId: session.user.userId,
-      displayName: session.user.name,
-      avatarUrl: session.user.image,
-      tracks: trackMap,
-      artists: artistMap,
-      genres: genreCountMap,
+      success: true,
+      data: {
+        spotifyUserId: session.user.userId,
+        displayName: session.user.name,
+        avatarUrl: session.user.image,
+        tracks: trackMap,
+        artists: artistMap,
+        genres: genreCountMap,
+      },
     };
   } catch (err) {
-    if (err instanceof Error) throw err;
-    throw new Error("Internal Server Error");
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Internal Server Error",
+    };
   }
 }
