@@ -20,7 +20,7 @@ export async function fetchArtistGenres(
     const playCountByArtist = new Map(artists.map((a) => [a.artistId, a.playCount]));
     const ids = artists.map((a) => a.artistId).join(",");
     const res = await fetch(`https://api.spotify.com/v1/artists/?ids=${ids}`, {
-      headers: { Authorization: `Bearer ${session.access_token}` },
+      headers: { Authorization: `Bearer ${token.access_token}` },
     });
     if (res.status === 401) {
       throw new Error("Spotify session expired. Please log in again.");
