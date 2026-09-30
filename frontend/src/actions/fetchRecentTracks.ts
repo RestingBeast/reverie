@@ -1,7 +1,7 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { cookies, headers } from "next/headers";
+import { getToken } from 'next-auth/jwt';
 import type { PlayHistory } from "@spotify/web-api-ts-sdk";
 import type { ArtistMap } from "@/types/artist.types";
 import type { TrackMap } from "@/types/track.types";
@@ -10,8 +10,13 @@ export async function fetchRecentTracks(opts?: { after?: number }) {
   const trackMap: TrackMap = new Map();
   const artistMap: ArtistMap = new Map();
 
-  const session = await getServerSession(authOptions);
-  if (!session?.access_token) throw new Error("Not authenticated.");
+  const token = await getToken(
+    {
+      req: { headers: await headers(), cookies: await cookies() } as any,
+      secret: process.env.NEXTAUTH_SECRET 
+    }
+  );
+  if (!token?.access_token) throw new Error("Not authenticated.");
 
   try {
     const params = new URLSearchParams({ limit: "50" });
@@ -20,7 +25,7 @@ export async function fetchRecentTracks(opts?: { after?: number }) {
     const res = await fetch(
       `https://api.spotify.com/v1/me/player/recently-played?${params}`,
       {
-        headers: { Authorization: `Bearer ${session.access_token}` },
+        headers: { Authorization: `Bearer ${token.access_token}` },
       },
     );
     if (res.status === 401) {
@@ -52,7 +57,7 @@ export async function fetchRecentTracks(opts?: { after?: number }) {
         name: track.name,
         artist: artist.name,
         playCount: (trackMap.get(track.id)?.playCount || 0) + 1,
-        albumCover: track.album.images[0].url,
+        albumCover: track.album.images[0]?.url ?? "",
         spotifyUrl: track.external_urls.spotify,
       });
 

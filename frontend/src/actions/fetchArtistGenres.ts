@@ -1,15 +1,20 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { cookies, headers } from "next/headers";
+import { getToken } from "next-auth/jwt";
 import type { Artist } from "@spotify/web-api-ts-sdk";
 import type { GenreCountMap, GenreMap } from "@/types/genre.types";
 
 export async function fetchArtistGenres(
   artists: { artistId: string; playCount: number }[],
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session?.access_token) throw new Error("Not authenticated");
+  const token = await getToken(
+    {
+      req: { headers: await headers(), cookies: await cookies() } as any,
+      secret: process.env.NEXTAUTH_SECRET 
+    }
+  );
+  if (!token?.access_token) throw new Error("Not authenticated.");
 
   try {
     const playCountByArtist = new Map(artists.map((a) => [a.artistId, a.playCount]));
