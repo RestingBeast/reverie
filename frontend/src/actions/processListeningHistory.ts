@@ -44,6 +44,8 @@ export async function processListeningHistory(
     return { success: false, error: "Not authenticated" };
   }
   const session = await getServerSession(authOptions);
+  if (!session)
+    return { success: false, error: "Internal Server Error" };
 
   try {
     const { artistMap, trackMap } = await fetchRecentTracks(opts);
