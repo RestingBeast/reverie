@@ -1,5 +1,7 @@
 "use server";
 
+import { cookies, headers } from "next/headers";
+import { getToken } from "next-auth/jwt";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchRecentTracks } from "./fetchRecentTracks";
@@ -32,10 +34,16 @@ type ProcessResult = ProcessSuccess | ProcessError;
 export async function processListeningHistory(
   opts?: { after?: number },
 ): Promise<ProcessResult> {
-  const session = await getServerSession(authOptions);
-  if (!session?.access_token) {
+  const token = await getToken(
+    {
+      req: { headers: await headers(), cookies: await cookies() } as any,
+      secret: process.env.NEXTAUTH_SECRET 
+    }
+  );
+  if (!token?.access_token) {
     return { success: false, error: "Not authenticated" };
   }
+  const session = await getServerSession(authOptions);
 
   try {
     const { artistMap, trackMap } = await fetchRecentTracks(opts);
