@@ -10,7 +10,7 @@ export async function generateNarrative(prompt) {
         content: prompt,
       },
     ],
-    model: "qwen/qwen3-32b",
+    model: "qwen/qwen3.8-27b",
     max_completion_tokens: 1200,
     "stream": false,
     "reasoning_effort": "default",
